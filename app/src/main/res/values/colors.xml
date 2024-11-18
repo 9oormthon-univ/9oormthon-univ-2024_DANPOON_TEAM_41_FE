@@ -8,4 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#F9B333</color>
+    <color name="primaryVariant">#FFF3DE</color>
+    <color name="error_color">#DE2020</color>
+    <color name="gray20">#ECECEC</color>
+    <color name="gray25">#E0E0E0</color>
+    <color name="gray40">#ABABAB</color>
+    <color name="gray45">#ADADAD</color>
+    <color name="gray60">#9A9A9A</color>
 </resources>
