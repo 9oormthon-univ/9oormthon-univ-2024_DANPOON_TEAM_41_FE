@@ -9,7 +9,132 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"/>
-
-
     
+    <View
+        android:id="@+id/main_bottom_nav1"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_bottom_nav2"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/main_bottom_nav2"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/main_bottom_nav1"
+        app:layout_constraintEnd_toStartOf="@id/main_bottom_nav3"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/main_bottom_nav3"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/main_bottom_nav2"
+        app:layout_constraintEnd_toStartOf="@id/main_bottom_nav4"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/main_bottom_nav4"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@id/main_bottom_nav3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/main_home_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_off"
+        android:layout_marginStart="37dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/main_home_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="홈"
+        android:textSize="9sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/main_home_iv"
+        app:layout_constraintStart_toStartOf="@id/main_home_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_home_iv"/>
+
+    <ImageView
+        android:id="@+id/main_map_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/map_off"
+        android:layout_marginStart="89dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/main_home_iv"/>
+
+    <TextView
+        android:id="@+id/main_map_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지도"
+        android:textSize="9sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/main_map_iv"
+        app:layout_constraintStart_toStartOf="@id/main_map_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_map_iv"/>
+
+    <ImageView
+        android:id="@+id/main_community_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/community_off"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/main_map_iv"/>
+
+    <TextView
+        android:id="@+id/main_community_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="커뮤니티"
+        android:textSize="9sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/main_community_iv"
+        app:layout_constraintStart_toStartOf="@id/main_community_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_community_iv"/>
+
+    <ImageView
+        android:id="@+id/main_mypage_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mypage_off"
+        android:layout_marginStart="89dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/main_community_iv"/>
+
+    <TextView
+        android:id="@+id/main_mypage_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="마이페이지"
+        android:textSize="9sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/main_mypage_iv"
+        app:layout_constraintStart_toStartOf="@id/main_mypage_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_mypage_iv"/>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
