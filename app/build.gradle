@@ -3,15 +3,12 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.gms.google-services'
 
 
 android {
     namespace 'com.example.allgoing'
-    compileSdk 34
+    compileSdk 35
 
     viewBinding {
         enabled = true
@@ -20,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.example.allgoing"
         minSdk 34
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -44,7 +41,7 @@ android {
 
 dependencies {
 
-    implementation libs.androidx.core.ktx
+    implementation 'androidx.core:core-ktx:1.15.0'
     implementation libs.androidx.appcompat
     implementation libs.material
     testImplementation libs.junit
