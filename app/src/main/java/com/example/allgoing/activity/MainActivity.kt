@@ -1,6 +1,5 @@
 package com.example.allgoing.activity
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -42,41 +41,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottoNav() {
-        binding.mainHomeIv.setImageResource(R.drawable.home_off)
+        binding.mainHomeIv.setImageResource(R.drawable.ic_home_off)
         binding.mainHomeTv.setTextColor(ContextCompat.getColor(this, R.color.black))
-        binding.mainMapIv.setImageResource(R.drawable.map_off)
+        binding.mainMapIv.setImageResource(R.drawable.ic_map_off)
         binding.mainMapTv.setTextColor(ContextCompat.getColor(this, R.color.black))
-        binding.mainCommunityIv.setImageResource(R.drawable.community_off)
+        binding.mainCommunityIv.setImageResource(R.drawable.ic_community_off)
         binding.mainCommunityTv.setTextColor(ContextCompat.getColor(this, R.color.black))
-        binding.mainMypageIv.setImageResource(R.drawable.mypage_off)
+        binding.mainMypageIv.setImageResource(R.drawable.ic_mypage_off)
         binding.mainMypageTv.setTextColor(ContextCompat.getColor(this, R.color.black))
 
         when(frag){
             0 -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, HomeFragment())
                 .commitAllowingStateLoss()
-                binding.mainHomeIv.setImageResource(R.drawable.home_on)
+                binding.mainHomeIv.setImageResource(R.drawable.ic_home_on)
                 binding.mainHomeTv.setTextColor(ContextCompat.getColor(this, R.color.primary_color))
             }
 
             1 -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, MapFragment())
                 .commitAllowingStateLoss()
-                binding.mainMapIv.setImageResource(R.drawable.map_on)
+                binding.mainMapIv.setImageResource(R.drawable.ic_map_on)
                 binding.mainMapTv.setTextColor(ContextCompat.getColor(this, R.color.primary_color))
             }
 
             2 -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, CommunityFragment())
                 .commitAllowingStateLoss()
-                binding.mainCommunityIv.setImageResource(R.drawable.community_on)
+                binding.mainCommunityIv.setImageResource(R.drawable.ic_community_on)
                 binding.mainCommunityTv.setTextColor(ContextCompat.getColor(this, R.color.primary_color))
             }
 
             3 -> {supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, MypageFragment())
                 .commitAllowingStateLoss()
-                binding.mainMypageIv.setImageResource(R.drawable.mypage_on)
+                binding.mainMypageIv.setImageResource(R.drawable.ic_mypage_on)
                 binding.mainMypageTv.setTextColor(ContextCompat.getColor(this, R.color.primary_color))
             }
         }
