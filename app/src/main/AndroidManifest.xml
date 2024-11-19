@@ -5,7 +5,10 @@
 
     <!--  permission  -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- ARCore가 필요한 최소 SDK 버전 선언 -->
+    <uses-feature android:name="android.hardware.camera.ar" android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -16,6 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllGoing">
+
+        <meta-data android:name="com.google.ar.core"
+            android:value="enabled"/>
 
         <!--  activity  -->
         <activity android:name=".activity.MainActivity"

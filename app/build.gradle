@@ -67,4 +67,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation ("com.squareup.okhttp3:okhttp-urlconnection")
+
+    implementation 'com.google.ar:core:1.46.0'
+    implementation 'com.google.android.filament:filament-android:1.32.1'
+    implementation 'com.google.android.filament:filament-utils-android:1.32.1'
 }

@@ -15,4 +15,5 @@
     <color name="gray40">#ABABAB</color>
     <color name="gray45">#ADADAD</color>
     <color name="gray60">#9A9A9A</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
