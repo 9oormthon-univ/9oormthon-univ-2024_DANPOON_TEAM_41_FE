@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#F9B333</color>
-    <color name="primaryOrange">#FFA300</color>
+    <color name="Orange30">#FFA300</color>
+    <color name="Orange20">#FFB531</color>
     <color name="primaryVariant">#FFF3DE</color>
     <color name="error_color">#DE2020</color>
     <color name="gray20">#ECECEC</color>

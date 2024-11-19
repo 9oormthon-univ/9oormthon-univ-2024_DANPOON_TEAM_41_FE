@@ -208,10 +208,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option1_order_ib"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="41.5dp"
             android:background="@drawable/bg_rectangle_white_stroke8_gray40_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -241,10 +241,10 @@
             app:layout_constraintStart_toEndOf="@id/mypage_option1_order_iv"/>
 
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option1_commu_ib"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="41.5dp"
             android:background="@drawable/bg_rectangle_white_stroke8_gray40_center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -273,10 +273,10 @@
             app:layout_constraintBottom_toBottomOf="@id/mypage_option1_commu_iv"
             app:layout_constraintStart_toEndOf="@id/mypage_option1_commu_iv"/>
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option1_comment_ib"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="41.3dp"
             android:background="@drawable/bg_rectangle_white_stroke8_gray40_center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -305,10 +305,10 @@
             app:layout_constraintBottom_toBottomOf="@id/mypage_option1_comment_iv"
             app:layout_constraintStart_toEndOf="@id/mypage_option1_comment_iv"/>
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option1_like_ib"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="41.3dp"
             android:background="@drawable/bg_rectangle_white_stroke8_gray40_bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -348,7 +348,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option2_talk_ib"
             android:layout_width="match_parent"
             android:layout_height="47dp"
@@ -380,7 +380,7 @@
             app:layout_constraintBottom_toBottomOf="@id/mypage_option2_talk_iv"
             app:layout_constraintStart_toEndOf="@id/mypage_option2_talk_iv"/>
 
-        <ImageButton
+        <View
             android:id="@+id/mypage_option2_logout_ib"
             android:layout_width="match_parent"
             android:layout_height="47dp"
