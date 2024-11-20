@@ -15,8 +15,8 @@ class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>(
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
-    fun setMyItemClickListener(itenClickListener: MyItemClickListener){
-        myItemClickListener = itenClickListener
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        myItemClickListener = itemClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
@@ -37,19 +37,20 @@ class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>(
         }
     }
     inner class ViewHolder(private val binding: ItemCommunityBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-                fun bind(community: Community) {
-                    binding.itemCommunityShopTv.text =community.community_shop
-                    binding.itemCommunityBodyTv.text = community.community_body
-                    binding.itemCommunityStarIv.rating = community.community_star.toFloat()
-                    binding.itemCommunityLikeNumTv.text = community.community_likenum.toString()
-                    binding.itemCommunityCommentNumTv.text = community.community_commentnum.toString()
-                    if (community.community_Img != null) {
-                        binding.itemCommunityImgIv.setImageResource(community.community_Img!!)
-                        binding.itemCommunityImgIv.visibility = View.VISIBLE
-                    } else {
-                        binding.itemCommunityImgIv.visibility = View.GONE
-                    }
-                }
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(community: Community) {
+            binding.itemCommunityShopTv.text =community.community_shop
+            binding.itemCommunityBodyTv.text = community.community_body
+            binding.itemCommunityStarIv.rating = community.community_star.toFloat()
+            binding.itemCommunityLikeNumTv.text = community.community_likenum.toString()
+            binding.itemCommunityCommentNumTv.text = community.community_commentnum.toString()
+            if (community.community_Img != null) {
+                binding.itemCommunityImgIv.setImageResource(community.community_Img!!)
+                binding.itemCommunityImgIv.visibility = View.VISIBLE
+            } else {
+                binding.itemCommunityImgIv.visibility = View.GONE
             }
+        }
+    }
+
 }

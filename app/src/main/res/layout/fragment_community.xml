@@ -49,6 +49,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <View
+        android:id="@+id/community_gray_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray40"
@@ -60,9 +61,9 @@
         android:layout_width="159dp"
         android:layout_height="29dp"
         android:background="@drawable/tab_btn_selector"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/community_gray_view"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -83,9 +84,9 @@
         android:layout_width="159dp"
         android:layout_height="29dp"
         android:background="@drawable/tab_btn_selector"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="17dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/community_gray_view"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
@@ -135,18 +136,43 @@
 
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/community_float_plus_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_float_only_plus"
+        app:icon="@drawable/ic_float_only_plus"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="69dp"
         app:backgroundTint="@color/primary"
-        android:tint="@color/white">
+        android:tint="@color/white"/>
 
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/community_float_commu_write_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_only_write"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="@color/white"
+        android:text="  글쓰기"
+        android:textStyle="bold"
+        android:textColor="@color/gray80"
+        app:layout_constraintBottom_toTopOf="@id/community_float_plus_btn"
+        app:layout_constraintEnd_toEndOf="@id/community_float_plus_btn"/>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/community_float_review_write_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_only_review"
+        app:iconTint="@color/gray80"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="@color/white"
+        android:text="리뷰 쓰기"
+        android:textStyle="bold"
+        android:textColor="@color/gray80"
+        app:layout_constraintBottom_toTopOf="@id/community_float_commu_write_btn"
+        app:layout_constraintEnd_toEndOf="@id/community_float_plus_btn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
