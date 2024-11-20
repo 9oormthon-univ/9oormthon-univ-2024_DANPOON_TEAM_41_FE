@@ -144,7 +144,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="69dp"
-        app:backgroundTint="@color/Orange20"
+        app:backgroundTint="@color/primary"
         android:tint="@color/white">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>

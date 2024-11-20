@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.allgoing.R
+import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMypageBinding
 
 class MypageFragment : Fragment(){
@@ -16,6 +18,41 @@ class MypageFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater,container,false)
+        initSetOnClickListener()
+
         return binding.root
+    }
+
+    private fun initSetOnClickListener(){
+
+        //프로필 수정
+        binding.mypageLoginBtnTv.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,EditProfileFragment()).commitAllowingStateLoss()
+        }
+
+        //예약 내역
+        binding.mypageOption1OrderIb.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HistoryOrderFragment()).commitAllowingStateLoss()
+        }
+
+        //내가 쓴 글
+        binding.mypageOption1CommuIb.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HistoryCommuFragment()).commitAllowingStateLoss()
+        }
+
+        //댓글 단 글
+        binding.mypageOption1CommentIb.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HistoryCommentFragment()).commitAllowingStateLoss()
+        }
+
+        //좋아요 누른 글
+        binding.mypageOption1LikeIb.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HistoryLikeFragment()).commitAllowingStateLoss()
+        }
     }
 }

@@ -328,7 +328,7 @@
             android:id="@+id/mypage_option1_like_tv"
             android:layout_width="103dp"
             android:layout_height="wrap_content"
-            android:text="내가 쓴 댓글"
+            android:text="좋아요 누른 글"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
