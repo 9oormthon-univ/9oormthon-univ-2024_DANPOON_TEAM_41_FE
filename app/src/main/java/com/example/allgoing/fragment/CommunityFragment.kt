@@ -5,17 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.allgoing.Adapter.CommunityRVAdapter
 import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
+import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentCommunityBinding
 import com.example.allgoing.dataclass.Community
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CommunityFragment : Fragment(){
     lateinit var binding: FragmentCommunityBinding
+    lateinit var addbutton: ExtendedFloatingActionButton
+    lateinit var writebutton: ExtendedFloatingActionButton
+    lateinit var reviewbutton: ExtendedFloatingActionButton
+    var isAllbuttonVisble = false
 
     private lateinit var adapter : CommunityRVAdapter
     var CommunityDatas = ArrayList<Community>()
@@ -30,6 +38,7 @@ class CommunityFragment : Fragment(){
         loadSampleData()
         initcommunityRecyclerView()
 
+        //탭 색 바꾸기
         setSelectedTab(binding.communityReviewIb, binding.communityReviewTv)
 
         binding.communityReviewIb.setOnClickListener{
@@ -38,6 +47,29 @@ class CommunityFragment : Fragment(){
         binding.communityQnaIb.setOnClickListener{
             setSelectedTab(binding.communityQnaIb,binding.communityQnaTv)
         }
+
+        //플로팅 버튼 초기화
+        addbutton = binding.communityFloatPlusBtn
+        writebutton = binding.communityFloatCommuWriteBtn
+        reviewbutton = binding.communityFloatReviewWriteBtn
+
+        writebutton.visibility = View.GONE
+        reviewbutton.visibility = View.GONE
+
+        addbutton.setOnClickListener{
+            toggleFloatingButtons()
+        }
+
+        writebutton.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,WriteCommuFragment()).commitAllowingStateLoss()
+        }
+        reviewbutton.setOnClickListener{
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,WriteReviewFragment()).commitAllowingStateLoss()
+        }
+
+
         return binding.root
     }
 
@@ -46,6 +78,34 @@ class CommunityFragment : Fragment(){
 
         selectedButton.isSelected = true
         selectedText.isSelected = true
+    }
+
+    private fun communityTabSelection(){
+        binding.communityReviewIb.isSelected = false
+        binding.communityReviewTv.isSelected = false
+        binding.communityQnaIb.isSelected = false
+        binding.communityQnaTv.isSelected = false
+    }
+
+    private fun toggleFloatingButtons(){
+        if(!isAllbuttonVisble){
+            writebutton.visibility = View.VISIBLE
+            reviewbutton.visibility = View.VISIBLE
+            rotateAddButton(45f)
+        }else {
+            writebutton.visibility = View.GONE
+            reviewbutton.visibility = View.GONE
+            rotateAddButton(0f)
+        }
+        isAllbuttonVisble = !isAllbuttonVisble
+    }
+
+    private fun rotateAddButton(targetRotation: Float) {
+        addbutton.animate()
+            .rotation(targetRotation) // 원하는 각도로 회전
+            .setDuration(300) // 애니메이션 지속 시간
+            .setInterpolator(LinearInterpolator()) // 선형 속도
+            .start()
     }
 
     fun initcommunityRecyclerView(){
@@ -60,12 +120,6 @@ class CommunityFragment : Fragment(){
 
         binding.communityRv.adapter = adapter
         adapter.notifyDataSetChanged()
-    }
-    private fun communityTabSelection(){
-        binding.communityReviewIb.isSelected = false
-        binding.communityReviewTv.isSelected = false
-        binding.communityQnaIb.isSelected = false
-        binding.communityQnaTv.isSelected = false
     }
     private fun loadSampleData(){
         CommunityDatas.add(Community("이건 커뮤니티 가게",4.5f,"맛있당",16,16))
