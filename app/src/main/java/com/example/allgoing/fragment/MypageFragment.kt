@@ -25,10 +25,10 @@ class MypageFragment : Fragment(){
 
     private fun initSetOnClickListener(){
 
-        //프로필 수정
+        //프로필 수정(로그인임)
         binding.mypageLoginBtnTv.setOnClickListener{
             (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm,EditProfileFragment()).commitAllowingStateLoss()
+                .replace(R.id.main_frm,LoginFragment()).commitAllowingStateLoss()
         }
 
         //예약 내역
