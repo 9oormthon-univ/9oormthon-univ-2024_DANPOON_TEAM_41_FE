@@ -17,9 +17,9 @@ class HistoryCommuRVAdapter() :RecyclerView.Adapter<HistoryCommuRVAdapter.ViewHo
         fun onItemClick(historyCommu: HistoryCommu)
     }
 
-    private lateinit var myItemClickListener: com.example.allgoing.Adapter.CommunityRVAdapter.MyItemClickListener
-    fun setMyItemClickListener(itenClickListener: com.example.allgoing.Adapter.CommunityRVAdapter.MyItemClickListener){
-        myItemClickListener = itenClickListener
+    private lateinit var myItemClickListener: MyItemClickListener
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        myItemClickListener = itemClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int
@@ -53,6 +53,5 @@ class HistoryCommuRVAdapter() :RecyclerView.Adapter<HistoryCommuRVAdapter.ViewHo
                     binding.itemCommuImgIv.visibility = View.GONE
                 }
             }
-
-            }
+        }
 }
