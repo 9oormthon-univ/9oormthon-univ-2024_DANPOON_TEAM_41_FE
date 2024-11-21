@@ -75,9 +75,5 @@ dependencies {
     // Filament GLTF I/O (GLTF/GLB 파일 로드를 위해 필요)
     implementation 'com.google.android.filament:gltfio-android:1.36.0'
 
-    implementation 'com.google.ar:core:1.46.0'
-    implementation 'com.google.android.filament:filament-android:1.32.1'
-    implementation 'com.google.android.filament:filament-utils-android:1.32.1'
-
     implementation "com.kakao.sdk:v2-user:2.12.1" // 카카오 로그인
 }

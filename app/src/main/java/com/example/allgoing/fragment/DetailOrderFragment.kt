@@ -30,6 +30,8 @@ class DetailOrderFragment : Fragment(){
     ): View? {
         binding = FragmentDetailOrderBinding.inflate(inflater,container,false)
 
+        initRV()
+
         return binding.root
     }
 
