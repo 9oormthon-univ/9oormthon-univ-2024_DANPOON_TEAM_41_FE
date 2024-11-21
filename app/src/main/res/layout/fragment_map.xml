@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/map_detail"
+        android:id="@+id/map_bottom"
         android:layout_width="match_parent"
         android:layout_height="151dp"
         android:background="@drawable/bg_map_bottom"
