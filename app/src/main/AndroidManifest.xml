@@ -11,6 +11,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllGoing">
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="6464ccc167d7d34887af472c191a971f"/>
 
         <meta-data android:name="com.google.ar.core"
             android:value="enabled"/>
@@ -34,6 +39,20 @@
         <activity
             android:name=".activity.CommunityActivity"
             android:exported="false" />
+
+        <!-- 카카오 로그인, 인가코드를 받기 위한 액티비티 -->
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="oauth"
+                    android:scheme="kakao6464ccc167d7d34887af472c191a971f" />
+            </intent-filter>
+
+        </activity>
 
     </application>
 </manifest>
