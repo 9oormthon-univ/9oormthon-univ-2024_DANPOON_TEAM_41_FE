@@ -21,7 +21,7 @@ class MapFragment : Fragment(){
 
         binding.mapBottom.setOnClickListener{
             (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, HomeFragment())
+                .replace(R.id.main_frm, DetailFragment())
                 .commitAllowingStateLoss()
         }
 

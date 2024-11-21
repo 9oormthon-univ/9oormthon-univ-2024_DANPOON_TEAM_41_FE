@@ -28,6 +28,13 @@ class DetailFragment : Fragment(){
             tab.text = information[p0]
         }.attach()
 
+        for (i in 0 until binding.detailTab.getTabCount()) {
+            val tab = (binding.detailTab.getChildAt(0) as ViewGroup).getChildAt(i)
+            val p = tab.layoutParams as ViewGroup.MarginLayoutParams
+            p.setMargins(15, 27, 15, 27)
+            tab.requestLayout()
+        }
+
         return binding.root
     }
 }
