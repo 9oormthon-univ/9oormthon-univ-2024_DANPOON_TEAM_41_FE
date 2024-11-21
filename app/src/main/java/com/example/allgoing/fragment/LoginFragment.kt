@@ -47,6 +47,11 @@ class LoginFragment : Fragment() {
         // 로그인을 초기화
         initView()
 
+        binding.loginBackIv.setOnClickListener {
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,MypageFragment()).commitAllowingStateLoss()
+        }
+
         // 디버그용 키 해시 로그
         val keyHash = Utility.getKeyHash(requireContext())
         Log.d("KeyHash", keyHash)
