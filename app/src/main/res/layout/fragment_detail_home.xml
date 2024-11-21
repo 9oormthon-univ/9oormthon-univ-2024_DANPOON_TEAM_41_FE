@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:id="@+id/detail_home_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_home_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detial_home_address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서울 종로구 창경궁로 88"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="19dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/detail_home_isopen_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영업중"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"
+                app:layout_constraintTop_toBottomOf="@id/detial_home_address_tv"
+                app:layout_constraintStart_toStartOf="@id/detial_home_address_tv"/>
+
+            <TextView
+                android:id="@+id/detail_home_open_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09:00"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="1dp"
+                app:layout_constraintTop_toTopOf="@id/detail_home_isopen_tv"
+                app:layout_constraintStart_toEndOf="@id/detail_home_isopen_tv"/>
+
+            <TextView
+                android:id="@+id/detail_home_timing_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="@id/detail_home_isopen_tv"
+                app:layout_constraintStart_toEndOf="@id/detail_home_open_time_tv"/>
+
+            <TextView
+                android:id="@+id/detail_home_close_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20:00"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="@id/detail_home_isopen_tv"
+                app:layout_constraintStart_toEndOf="@id/detail_home_timing_tv"/>
+            
+            <ImageView
+                android:id="@+id/detail_home_drop_iv"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:src="@drawable/ic_drop"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintTop_toTopOf="@id/detail_home_isopen_tv"
+                app:layout_constraintStart_toEndOf="@id/detail_home_close_time_tv"/>
+
+            <LinearLayout
+                android:id="@+id/detail_home_time_detail_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/detail_home_isopen_tv">
+
+                <TextView
+                    android:id="@+id/detail_home_all_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="월 0"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/detail_home_call_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-0000-0000"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/detail_home_time_detail_ll"
+                app:layout_constraintStart_toStartOf="@id/detail_home_isopen_tv"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
