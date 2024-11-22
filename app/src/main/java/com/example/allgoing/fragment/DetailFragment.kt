@@ -28,6 +28,8 @@ class DetailFragment : Fragment(){
             tab.text = information[p0]
         }.attach()
 
+        binding.detailVp.isUserInputEnabled = false
+
         for (i in 0 until binding.detailTab.getTabCount()) {
             val tab = (binding.detailTab.getChildAt(0) as ViewGroup).getChildAt(i)
             val p = tab.layoutParams as ViewGroup.MarginLayoutParams

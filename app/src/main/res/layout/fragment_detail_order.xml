@@ -141,7 +141,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="15dp"
-                    android:paddingStart="10dp"
                     tools:listitem="@layout/item_order_time"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
