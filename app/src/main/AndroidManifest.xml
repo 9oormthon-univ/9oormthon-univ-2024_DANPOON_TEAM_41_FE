@@ -25,6 +25,10 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="6464ccc167d7d34887af472c191a971f"/>
 
+        <meta-data
+            android:name="com.kakao.vectormap.KAKAO_MAP_KEY"
+            android:value="6464ccc167d7d34887af472c191a971f"/>
+
         <meta-data android:name="com.google.ar.core"
             android:value="enabled"/>
 
