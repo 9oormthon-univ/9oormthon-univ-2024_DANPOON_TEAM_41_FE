@@ -5,7 +5,6 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 
-
 android {
     namespace 'com.example.allgoing'
     compileSdk 35
@@ -36,6 +35,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

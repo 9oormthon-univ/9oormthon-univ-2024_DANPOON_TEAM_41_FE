@@ -4,8 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--  permission  -->
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <!-- ARCore가 필요한 최소 SDK 버전 선언 -->
     <uses-feature android:name="android.hardware.camera.ar" android:required="true" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
@@ -23,6 +27,10 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
+            android:value="6464ccc167d7d34887af472c191a971f"/>
+
+        <meta-data
+            android:name="com.kakao.vectormap.KAKAO_MAP_KEY"
             android:value="6464ccc167d7d34887af472c191a971f"/>
 
         <meta-data android:name="com.google.ar.core"

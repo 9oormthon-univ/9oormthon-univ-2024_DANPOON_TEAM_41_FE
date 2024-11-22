@@ -65,11 +65,13 @@
         app:layout_constraintBottom_toBottomOf="@id/map_search_view"
         app:layout_constraintStart_toStartOf="@id/map_search_view"/>
     
-    <TextView
+    <com.kakao.vectormap.MapView
+        android:id="@+id/kakao_map_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="map api"
+        android:layout_height="627dp"
         app:layout_constraintTop_toBottomOf="@id/map_view1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
