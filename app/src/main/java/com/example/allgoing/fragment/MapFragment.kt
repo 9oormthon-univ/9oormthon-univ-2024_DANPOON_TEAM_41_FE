@@ -27,4 +27,10 @@ class MapFragment : Fragment(){
 
         return binding.root
     }
+
+    private fun initMap() {
+
+//        KakaoMapSdk.init(this, "your_app_key");
+
+    }
 }
