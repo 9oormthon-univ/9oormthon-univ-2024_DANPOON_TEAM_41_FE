@@ -1,6 +1,7 @@
 package com.example.allgoing.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -33,21 +34,21 @@ class DetailHomeFragment : Fragment(){
     ): View? {
         binding = FragmentDetailHomeBinding.inflate(inflater,container,false)
 
-        binding.detailHomeDropLl.isClickable = true // 클릭 가능
-        binding.detailHomeDropLl.isFocusable = true // 포커스 가능
+//        binding.detailHomeDropLl.isClickable = true // 클릭 가능
+//        binding.detailHomeDropLl.isFocusable = true // 포커스 가능
 
         binding.detailHomeDropLl.setOnClickListener{
             toggleDetailView()
         }
 
-        binding.detailHomeDropLl.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> { true }
-                MotionEvent.ACTION_UP -> { toggleDetailView()
-                    true }
-                else -> false
-            }
-        }
+//        binding.detailHomeDropLl.setOnTouchListener { _, event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_DOWN -> { true }
+//                MotionEvent.ACTION_UP -> { toggleDetailView()
+//                    true }
+//                else -> false
+//            }
+//        }
 
         loadMenuData()
         initMenuRecyclerView()
@@ -56,11 +57,13 @@ class DetailHomeFragment : Fragment(){
     }
 
     private fun toggleDetailView(){
-        if (binding.detailHomeTimeDetailLl.visibility == View.GONE){
-            binding.detailHomeTimeDetailLl.visibility = View.VISIBLE
+//        Log.d("click test","test")
+        if (!binding.detailHomeTimeDetailLl.isSelected){
+            binding.detailHomeAllTimeTv.visibility = View.VISIBLE
         } else {
-            binding.detailHomeTimeDetailLl.visibility = View.GONE
+            binding.detailHomeAllTimeTv.visibility = View.GONE
         }
+        binding.detailHomeTimeDetailLl.isSelected = !binding.detailHomeTimeDetailLl.isSelected
     }
 
     private fun initMenuRecyclerView() {
