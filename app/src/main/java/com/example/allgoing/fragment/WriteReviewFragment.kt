@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.allgoing.Adapter.DetailNoticeRVAdapter
+import com.example.allgoing.Adapter.SelectShopRVAdapter
 import com.example.allgoing.Interface.DialogInterface
 import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
@@ -32,6 +35,12 @@ class WriteReviewFragment : Fragment(), DialogInterface {
         binding.writeReviewBackIv.setOnClickListener {
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, CommunityFragment()).commitAllowingStateLoss()
+        }
+
+        binding.writeReviewSelectShopLayout.setOnClickListener {
+            binding.writeReviewSelectShopRv.visibility = View.VISIBLE
+            binding.writeReviewDropIv.setImageResource(R.drawable.ic_toggle_up)
+            initRV()
         }
 
         // 게시하기 버튼 클릭 시 다이얼로그 호출
@@ -135,5 +144,21 @@ class WriteReviewFragment : Fragment(), DialogInterface {
             val intent = Intent(activity, CommunityActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun initRV() {
+        var shopRVAdapter = SelectShopRVAdapter()
+
+        shopRVAdapter.setClickListener(object : SelectShopRVAdapter.MyClickListener{
+            override fun itemSelect(shopName : String) {
+                binding.writeReviewSelectShopTv.text = shopName
+                binding.writeReviewDropIv.setImageResource(R.drawable.ic_drop)
+                binding.writeReviewSelectShopRv.visibility = View.GONE
+            }
+        })
+
+        binding.writeReviewSelectShopRv.adapter = shopRVAdapter
+        binding.writeReviewSelectShopRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
     }
 }
