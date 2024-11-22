@@ -28,6 +28,7 @@ class DetailReviewFragment : Fragment(){
         binding = FragmentDetailReviewBinding.inflate(inflater,container,false)
 
         initcommunityRecyclerView()
+        loadSampleData()
 
         return binding.root
     }
