@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMapBinding
+import com.kakao.vectormap.KakaoMapSdk
+import com.kakao.vectormap.MapView
 
 class MapFragment : Fragment(){
     lateinit var binding: FragmentMapBinding
+    private var mapView: MapView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,12 +28,20 @@ class MapFragment : Fragment(){
                 .commitAllowingStateLoss()
         }
 
+        initMap()
+
         return binding.root
     }
 
     private fun initMap() {
 
-//        KakaoMapSdk.init(this, "your_app_key");
+        KakaoMapSdk.init(requireContext(), "6464ccc167d7d34887af472c191a971f")
+        mapView = binding.kakaoMapView
 
+    }
+    override fun onDestroyView() {
+        (mapView?.parent as? ViewGroup)?.removeView(mapView)
+        mapView = null
+        super.onDestroyView()
     }
 }
