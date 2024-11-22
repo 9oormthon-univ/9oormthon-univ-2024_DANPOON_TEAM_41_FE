@@ -2,6 +2,7 @@ package com.example.allgoing.fragment
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,16 +12,22 @@ import androidx.fragment.app.Fragment
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentLoginBinding
+import com.example.allgoing.retrofit.DTO.Request.LoginReq
+import com.example.allgoing.retrofit.DTO.Response.kakaoUserRes
+import com.example.allgoing.retrofit.KakaoClient
+import com.example.allgoing.retrofit.RetrofitClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding : FragmentLoginBinding
 
     // 카카오 로그인 콜백
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -28,8 +35,26 @@ class LoginFragment : Fragment() {
             Log.d(TAG, "로그인 실패: ${error.localizedMessage}")
         } else if (token != null) {
             Log.d(TAG, "로그인 성공! ${token.accessToken}")
-            goToMain()
+            login(token)
         }
+    }
+
+    private fun login(token: OAuthToken) {
+        KakaoClient.service.getUser(Authorization = "Bearer "+token.accessToken).enqueue(object :
+            Callback<kakaoUserRes> {
+            override fun onResponse(
+                call: Call<kakaoUserRes>,
+                response: Response<kakaoUserRes>
+            ) {
+                Log.d("kakaoUserRes", response.toString())
+//                    RetrofitClient.service.postLogin(LoginReq(token.accessToken, "email@gmail.com"))
+                goToMain()
+            }
+
+            override fun onFailure(call: Call<kakaoUserRes>, t: Throwable) {
+                Log.e("kakaoUserRes",t.toString())
+            }
+        })
     }
 
     override fun onCreateView(
@@ -37,7 +62,8 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater,container,false)
+
         return binding.root
     }
 
@@ -78,6 +104,7 @@ class LoginFragment : Fragment() {
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
                         Log.d(TAG, "로그인 성공! ${token.accessToken}")
+                        login(token)
                         goToMain()
                     }
                 }
@@ -91,10 +118,5 @@ class LoginFragment : Fragment() {
     private fun goToMain(){
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm,MypageFragment()).commitAllowingStateLoss()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
