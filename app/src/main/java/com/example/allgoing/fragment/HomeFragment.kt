@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.allgoing.R
+import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(){
@@ -17,7 +19,10 @@ class HomeFragment : Fragment(){
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
 
-
+        binding.homeShopIc.setOnClickListener {
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,ShopFragment()).commitAllowingStateLoss()
+        }
 
         return binding.root
     }

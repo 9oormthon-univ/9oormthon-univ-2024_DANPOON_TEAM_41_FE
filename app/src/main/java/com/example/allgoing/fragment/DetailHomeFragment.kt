@@ -34,21 +34,11 @@ class DetailHomeFragment : Fragment(){
     ): View? {
         binding = FragmentDetailHomeBinding.inflate(inflater,container,false)
 
-//        binding.detailHomeDropLl.isClickable = true // 클릭 가능
-//        binding.detailHomeDropLl.isFocusable = true // 포커스 가능
 
         binding.detailHomeDropLl.setOnClickListener{
             toggleDetailView()
         }
 
-//        binding.detailHomeDropLl.setOnTouchListener { _, event ->
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> { true }
-//                MotionEvent.ACTION_UP -> { toggleDetailView()
-//                    true }
-//                else -> false
-//            }
-//        }
 
         loadMenuData()
         initMenuRecyclerView()
@@ -56,15 +46,19 @@ class DetailHomeFragment : Fragment(){
         return binding.root
     }
 
-    private fun toggleDetailView(){
-//        Log.d("click test","test")
-        if (!binding.detailHomeTimeDetailLl.isSelected){
+    private fun toggleDetailView() {
+        // 토글 상태에 따라 요일 레이아웃을 보여주거나 숨기기
+        if (!binding.detailHomeTimeDetailLl.isSelected) {
             binding.detailHomeAllTimeTv.visibility = View.VISIBLE
+            binding.detailHomeDropIv.setImageResource(R.drawable.ic_toggle_up) // 아이콘 변경
         } else {
             binding.detailHomeAllTimeTv.visibility = View.GONE
+            binding.detailHomeDropIv.setImageResource(R.drawable.ic_drop) // 기본 아이콘으로 복원
         }
+        // 선택 상태 변경
         binding.detailHomeTimeDetailLl.isSelected = !binding.detailHomeTimeDetailLl.isSelected
     }
+
 
     private fun initMenuRecyclerView() {
         menuadapter = DetailHomeMenuRVAdapter(detailhomemenuList)
