@@ -20,6 +20,12 @@ class MypageFragment : Fragment(){
         binding = FragmentMypageBinding.inflate(inflater,container,false)
         initSetOnClickListener()
 
+        if (MainActivity.accessToken != "") {
+            binding.mypageTitleTv.text = MainActivity.name
+            binding.mypageLoginBtnTv.visibility = View.GONE
+            binding.mypageEmailTv.text = MainActivity.email
+        }
+
         return binding.root
     }
 
