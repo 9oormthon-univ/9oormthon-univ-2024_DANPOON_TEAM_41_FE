@@ -71,6 +71,7 @@
         android:id="@+id/map_bottom"
         android:layout_width="match_parent"
         android:layout_height="151dp"
+        android:visibility="gone"
         android:background="@drawable/bg_map_bottom"
         app:layout_constraintBottom_toBottomOf="parent">
 
