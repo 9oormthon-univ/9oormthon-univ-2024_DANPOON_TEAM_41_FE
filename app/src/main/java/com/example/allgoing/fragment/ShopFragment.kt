@@ -66,6 +66,7 @@ class ShopFragment : Fragment() {
 
     private fun init3D() {
         var surfaceView = binding.shopModel
+        var model = "cat"
 //        surfaceView.isVisible = true
 
         customViewer.run {
@@ -73,7 +74,7 @@ class ShopFragment : Fragment() {
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
-            loadGlb(requireContext() ,"cat3");
+            loadGlb(requireContext() ,model);
 
             loadIndirectLight(requireContext(), "venetian_crossroads_2k")
 //            loadEnviroment(requireContext(), "venetian_crossroads_2k")
