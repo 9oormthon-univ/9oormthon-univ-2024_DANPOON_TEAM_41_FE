@@ -7,7 +7,7 @@ data class ReviewCreateRes(
     @SerializedName("information") val information: Information
 ) {
     data class Information(
-        @SerializedName("level") val level: Int,
-        @SerializedName("catExp") val catExp: Int
+        @SerializedName("title") val level: Int,
+        @SerializedName("content") val catExp: Int
     )
 }

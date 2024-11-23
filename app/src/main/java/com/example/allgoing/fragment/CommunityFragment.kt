@@ -15,6 +15,8 @@ import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentCommunityBinding
+import com.example.allgoing.retrofit.DTO.DataClass.Board
+import com.example.allgoing.retrofit.DTO.DataClass.Review
 import com.example.allgoing.retrofit.DTO.Response.BoardListRes
 import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 import com.example.allgoing.retrofit.RetrofitClient
@@ -26,8 +28,8 @@ import retrofit2.Response
 class CommunityFragment : Fragment() {
     lateinit var binding: FragmentCommunityBinding
     private lateinit var adapter: CommunityRVAdapter
-    private var communityDatas = ArrayList<ReviewTraditionalRes.Community>()
-    private var boardDatas = ArrayList<BoardListRes.Information>()
+    private var communityDatas = ArrayList<Review>()
+    private var boardDatas = ArrayList<Board>()
 
     private var isReviewTabSelected = true // 현재 선택된 탭 상태를 저장
     var traditionalId: Int = 1
@@ -124,7 +126,7 @@ class CommunityFragment : Fragment() {
             adapter.communitylist.clear()
             boardDatas.forEach { board ->
                 // 게시판 데이터를 Community 형식으로 매핑
-                val fakeCommunity = ReviewTraditionalRes.Community(
+                val fakeCommunity = Review(
                     reviewId = board.postId,
                     reviewTitle = board.title,
                     reviewContent = board.content,
@@ -149,7 +151,7 @@ class CommunityFragment : Fragment() {
         binding.communityRv.adapter = adapter
 
         adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener {
-            override fun onItemClick(community: ReviewTraditionalRes.Community) {
+            override fun onItemClick(community: Review) {
                 if (isReviewTabSelected) {
                     // 리뷰 상세 페이지로 이동
                     val intent = Intent(activity, CommunityActivity::class.java)
