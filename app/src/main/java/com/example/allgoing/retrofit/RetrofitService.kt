@@ -290,6 +290,7 @@ interface RetrofitService {
     //해당 시장에 포함된 가게
     @GET("/api/v1/traditional/{traditionalId}")
     fun getTraditionalStoreList(
+        @Header("Authorization") authorization: String,
         @Path("traditionalId") traditionalId: Int
     ): Call<TraditionalStoreListRes>
 

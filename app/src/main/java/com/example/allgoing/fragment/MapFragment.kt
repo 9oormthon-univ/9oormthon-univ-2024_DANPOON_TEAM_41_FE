@@ -15,6 +15,7 @@ import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMapBinding
 import com.example.allgoing.retrofit.DTO.Response.StoreAllListRes
 import com.example.allgoing.retrofit.DTO.Response.TraditionalListRes
+import com.example.allgoing.retrofit.DTO.Response.TraditionalStoreListRes
 import com.example.allgoing.retrofit.RetrofitClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -53,6 +54,9 @@ class MapFragment : Fragment(){
 
     private var kakaoMap : KakaoMap? = null
     private var userWidget : GuiImage? = null
+
+    var storeId: Int = 1
+    var traditionalId : Int = 1
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -116,6 +120,7 @@ class MapFragment : Fragment(){
                                 p2: GestureType
                             ) {
                                 setStore()
+                                setStoreList(storeId)
                             }
 
                         })
@@ -248,6 +253,77 @@ class MapFragment : Fragment(){
 
         })
     }
+
+    //가게
+    private fun setStoreList(traditionalId: Int) {
+        var res: ArrayList<TraditionalStoreListRes.Information> = arrayListOf()
+
+        RetrofitClient.service.getTraditionalStoreList("Bearer " + MainActivity.accessToken, traditionalId)
+            .enqueue(object : Callback<TraditionalStoreListRes> {
+                override fun onResponse(
+                    call: Call<TraditionalStoreListRes>,
+                    response: Response<TraditionalStoreListRes>
+                ) {
+                    Log.d("MapFragment api 1", response.body().toString())
+                    Log.d("MapFragment api 2", response.toString())
+                    Log.d("MapFragment api 3", MainActivity.accessToken)
+
+                    if (response.body() != null) {
+                        res = response.body()!!.information
+
+                        kakaoMap?.labelManager?.addLayer(LabelLayerOptions.from("store"))
+                        val layer = kakaoMap?.labelManager?.getLayer("store")
+
+                        val styles = LabelStyles.from(LabelStyle.from(R.drawable.img_store_pin))
+
+                        val storeStyles = kakaoMap?.labelManager?.addLabelStyles(styles)
+
+                        for (index in res.indices) {
+                            Log.d("MapFragment", "store$index")
+
+                            val loc = LatLng.from(
+                                res[index].storeLatitude,
+                                res[index].storeLongitude
+                            )
+                            val options = LabelOptions.from("store$index", loc)
+                                .setTag(index)
+                                .setStyles(storeStyles)
+                                .setTag(index)
+
+                            layer?.addLabel(options, object : OnLabelCreateCallback {
+                                override fun onLabelCreated(layer: LabelLayer?, label: Label?) {
+                                    if (label != null) {
+                                        Log.d("MapFragment", "store$index ${loc}")
+
+                                        kakaoMap?.setOnLabelClickListener(object : OnLabelClickListener {
+                                            override fun onLabelClicked(
+                                                kakaoMap: KakaoMap,
+                                                layer: LabelLayer?,
+                                                label: Label
+                                            ): Boolean {
+                                                if (label.tag != "cat") {
+                                                    binding.mapBottom.visibility = View.VISIBLE
+                                                    binding.mapBottomTitle.text = res[label.tag as Int].storeName
+                                                    binding.mapBottomContent.text= res[label.tag as Int].storeIntro
+                                                    binding.mapBottomRate.text = res[label.tag as Int].star.toString()
+                                                }
+                                                return true
+                                            }
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<TraditionalStoreListRes>, t: Throwable) {
+                    Log.e("MapFragment", "API call failed: ${t.message}")
+                }
+            })
+    }
+
+
 
     override fun onDestroyView() {
         (mapView?.parent as? ViewGroup)?.removeView(mapView)
