@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="@id/shop_coin_iv"
         app:layout_constraintStart_toEndOf="@id/shop_coin_iv"/>
 
-    <TextView
+    <SurfaceView
         android:id="@+id/shop_model"
         android:layout_width="0dp"
         android:layout_height="0dp"
