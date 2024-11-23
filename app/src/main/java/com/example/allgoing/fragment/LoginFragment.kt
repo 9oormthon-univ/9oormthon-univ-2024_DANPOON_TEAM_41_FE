@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
                 Log.d("LoginFragment", response.body().toString())
 
                 if(response.body()?.information != null){
-                    MainActivity.accessToken = response.body()!!.information.accessToken
+                    MainActivity.accessToken = "Bearer "+response.body()!!.information.accessToken
                     goToMain()
                 }
             }

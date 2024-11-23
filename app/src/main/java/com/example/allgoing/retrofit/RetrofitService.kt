@@ -201,6 +201,7 @@ interface RetrofitService {
     //가게 정보 간단 조회 //핀 클릭 시
     @GET("/api/v1/store/summary/{storeId}")
     fun getStoreList(
+        @Header("Authorization") authorization: String,
         @Path(value = "storeId") storeId: Int
     ): Call<StoreFastListRes>
 
