@@ -5,12 +5,9 @@ data class StoreAllListRes(
     val information: List<Information>
 ) {
     data class Information(
-        val storeId: Int,
-        val storeName: String,
-        val storeIntro: String,
-        val storeAddress: String,
-        val star: Double,
-        val storeLatitude: Int,
-        val storeLongitude: Int
+        val traditionalId: Int,
+        val traditionalName: String,
+        val traditionalLatitude: Int,
+        val traditionalLongitude: Int
     )
 }
