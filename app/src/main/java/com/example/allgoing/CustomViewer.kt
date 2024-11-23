@@ -32,6 +32,24 @@ class CustomViewer {
         modelViewer.scene.skybox?.setColor(1.0f, 1.0f, 1.0f, 1.0f) //White color
     }
 
+
+    fun loadGlb(context: Context, name: String) {
+        val buffer = readAsset(context, "models/${name}.glb")
+        modelViewer.apply {
+            loadModelGlb(buffer)
+            transformToUnitCube()
+        }
+    }
+
+    fun loadGlb(context: Context, dirName: String, name: String) {
+        val buffer = readAsset(context, "models/${dirName}/${name}.glb")
+        modelViewer.apply {
+            loadModelGlb(buffer)
+            transformToUnitCube()
+        }
+    }
+
+
     fun loadGltf(context: Context, name: String) {
         val buffer = context.assets.open("models/${name}.gltf").use { input ->
             val bytes = ByteArray(input.available())

@@ -39,7 +39,7 @@ class HomeFragment : Fragment(){
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
-            loadGltf(requireContext() ,"cat");
+            loadGlb(requireContext() ,"cat");
         }
 
     }
