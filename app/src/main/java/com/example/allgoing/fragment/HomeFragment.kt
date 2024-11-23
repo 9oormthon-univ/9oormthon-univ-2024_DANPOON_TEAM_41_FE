@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.allgoing.CustomViewer
 import com.example.allgoing.R
@@ -25,7 +26,7 @@ class HomeFragment : Fragment(){
                 .replace(R.id.main_frm,ShopFragment()).commitAllowingStateLoss()
         }
 
-//        init3D()
+        init3D()
 
         return binding.root
     }
@@ -34,13 +35,39 @@ class HomeFragment : Fragment(){
 
     private fun init3D() {
         var surfaceView = binding.homeModel
+//        surfaceView.isVisible = true
+
         customViewer.run {
             loadEntity()
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
             loadGlb(requireContext() ,"cat");
+
+            loadIndirectLight(requireContext(), "venetian_crossroads_2k")
+//            loadEnviroment(requireContext(), "venetian_crossroads_2k")
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        customViewer.run {
+            onResume()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        customViewer.run {
+            onDestroy()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        customViewer.run {
+            onPause()
+        }
     }
 }
