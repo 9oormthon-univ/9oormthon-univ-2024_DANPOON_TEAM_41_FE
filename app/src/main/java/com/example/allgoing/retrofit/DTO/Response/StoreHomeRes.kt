@@ -1,32 +1,34 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class StoreHomeRes(
-    val check: Boolean,
-    val information: Information
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: Information
 ) {
     data class Information(
-        val storeId: Int,
-        val storeName: String,
-        val storeIntro: String,
-        val storeAddress: String,
-        val storePhone: String,
-        val star: Double,
-        val products: List<Product>,
-        val storeImages: List<Any>,
-        val storeInfos: List<StoreInfo>
+        @SerializedName("storeId") val storeId: Int,
+        @SerializedName("storeName") val storeName: String,
+        @SerializedName("storeIntro") val storeIntro: String,
+        @SerializedName("storeAddress") val storeAddress: String,
+        @SerializedName("storePhone") val storePhone: String,
+        @SerializedName("star") val star: Double,
+        @SerializedName("products") val products: ArrayList<Product>,
+        @SerializedName("storeImages") val storeImages: ArrayList<Any>,
+        @SerializedName("storeInfos") val storeInfos: ArrayList<StoreInfo>
     ) {
         data class Product(
-            val productId: Int,
-            val productName: String,
-            val productPrice: Int,
-            val productImageUrl: String
+            @SerializedName("productId") val productId: Int,
+            @SerializedName("productName") val productName: String,
+            @SerializedName("productPrice") val productPrice: Int,
+            @SerializedName("productImageUrl") val productImageUrl: String
         )
 
         data class StoreInfo(
-            val day: String,
-            val openTime: String,
-            val closeTime: String,
-            val `open`: Boolean
+            @SerializedName("day") val day: String,
+            @SerializedName("openTime") val openTime: String,
+            @SerializedName("closeTime") val closeTime: String,
+            @SerializedName("open") val `open`: Boolean
         )
     }
 }

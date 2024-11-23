@@ -1,26 +1,28 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class StoreReviewRes(
-    val check: Boolean,
-    val information: List<Information>
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: ArrayList<Information>
 ) {
     data class Information(
-        val reviewId: Int,
-        val storeId: Int,
-        val userId: Int,
-        val reviewTitle: String,
-        val reviewContent: String,
-        val likeCount: Int,
-        val writerName: String,
-        val commentCount: Int,
-        val createdAt: String,
-        val star: Int,
-        val reviewImages: List<ReviewImage>
+        @SerializedName("reviewId") val reviewId: Int,
+        @SerializedName("storeId") val storeId: Int,
+        @SerializedName("userId") val userId: Int,
+        @SerializedName("reviewTitle") val reviewTitle: String,
+        @SerializedName("reviewContent") val reviewContent: String,
+        @SerializedName("likeCount") val likeCount: Int,
+        @SerializedName("writerName") val writerName: String,
+        @SerializedName("commentCount") val commentCount: Int,
+        @SerializedName("createdAt") val createdAt: String,
+        @SerializedName("star") val star: Int,
+        @SerializedName("reviewImages") val reviewImages: ArrayList<ReviewImage>
     ) {
         data class ReviewImage(
-            val reviewImageId: Int,
-            val reviewId: Int,
-            val reviewImageUrl: String
+            @SerializedName("reviewImageId") val reviewImageId: Int,
+            @SerializedName("reviewId") val reviewId: Int,
+            @SerializedName("reviewImageUrl") val reviewImageUrl: String
         )
     }
 }

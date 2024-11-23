@@ -2,6 +2,8 @@ package com.example.allgoing.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +17,13 @@ import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentCommunityBinding
 import com.example.allgoing.dataclass.Community
+import com.example.allgoing.retrofit.DTO.Response.BoardListRes
+import com.example.allgoing.retrofit.RetrofitClient
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CommunityFragment : Fragment(){
     lateinit var binding: FragmentCommunityBinding
@@ -36,7 +43,7 @@ class CommunityFragment : Fragment(){
         binding = FragmentCommunityBinding.inflate(inflater,container,false)
 
         loadSampleData()
-        initcommunityRecyclerView()
+
 
         //탭 색 바꾸기
         setSelectedTab(binding.communityReviewIb, binding.communityReviewTv)
@@ -72,6 +79,7 @@ class CommunityFragment : Fragment(){
 
         return binding.root
     }
+
 
     private fun setSelectedTab(selectedButton: ImageButton, selectedText: TextView){
         communityTabSelection()

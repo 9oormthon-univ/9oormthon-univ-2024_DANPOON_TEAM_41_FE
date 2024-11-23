@@ -1,24 +1,26 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class StoreFastListRes(
-    val check: Boolean,
-    val information: Information
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: Information
 ) {
     data class Information(
-        val storeId: Int,
-        val storeName: String,
-        val storeIntro: String,
-        val storeAddress: String,
-        val storeImageUrl: String,
-        val star: Double,
-        val storeInfos: List<StoreInfo>,
-        val reviewCount: Int
+        @SerializedName("storeId") val storeId: Int,
+        @SerializedName("storeName") val storeName: String,
+        @SerializedName("storeIntro") val storeIntro: String,
+        @SerializedName("storeAddress") val storeAddress: String,
+        @SerializedName("storeImageUrl") val storeImageUrl: String,
+        @SerializedName("star") val star: Double,
+        @SerializedName("storeInfos") val storeInfos: ArrayList<StoreInfo>,
+        @SerializedName("reviewCount") val reviewCount: Int
     ) {
         data class StoreInfo(
-            val day: String,
-            val openTime: String,
-            val closeTime: String,
-            val `open`: Boolean
+            @SerializedName("day") val day: String,
+            @SerializedName("openTime") val openTime: String,
+            @SerializedName("closeTime") val closeTime: String,
+            @SerializedName("open") val `open`: Boolean
         )
     }
 }

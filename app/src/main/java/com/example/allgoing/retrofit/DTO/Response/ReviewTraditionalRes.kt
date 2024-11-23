@@ -2,9 +2,9 @@ package com.example.allgoing.retrofit.DTO.Response
 
 import com.google.gson.annotations.SerializedName
 
-data class ReviewDetailRes(
+data class ReviewTraditionalRes(
     @SerializedName("check") val check: Boolean,
-    @SerializedName("information") val information: Information
+    @SerializedName("information") val information: ArrayList<Information>
 ) {
     data class Information(
         @SerializedName("reviewId") val reviewId: Int,
