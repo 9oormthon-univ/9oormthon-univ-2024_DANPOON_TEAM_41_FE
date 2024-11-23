@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMypageBinding
@@ -25,6 +26,20 @@ class MypageFragment : Fragment(){
             binding.mypageLoginBtnTv.visibility = View.GONE
             binding.mypageEmailTv.visibility = View.VISIBLE
             binding.mypageEmailTv.text = MainActivity.email
+
+            Glide.with(requireContext()).load(MainActivity.img).into(binding.mypageProfileIv)
+
+        }
+
+        binding.mypageOption2LogoutIb.setOnClickListener{
+            MainActivity.img = ""
+            MainActivity.name = ""
+            MainActivity.email = ""
+            MainActivity.acc1 = ""
+            MainActivity.acc2 = ""
+            MainActivity.accessToken = ""
+
+            (activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,LoginFragment()).commitAllowingStateLoss()
         }
 
         return binding.root

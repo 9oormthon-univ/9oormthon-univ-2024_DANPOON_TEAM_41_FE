@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
 
         binding.loginBackIv.setOnClickListener {
             (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm,MypageFragment()).commitAllowingStateLoss()
+                .replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
         }
 
         // 디버그용 키 해시 로그
@@ -144,6 +144,6 @@ class LoginFragment : Fragment() {
 
     private fun goToMain(){
         (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm,MypageFragment()).commitAllowingStateLoss()
+            .replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
     }
 }

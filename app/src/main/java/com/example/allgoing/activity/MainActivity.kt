@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         var acc2 = ""
 
         var img = ""
+
+        var mainActivity : MainActivity? = null
     }
 
     var frag : Int = 0
@@ -51,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         initBottoNav()
 
         if(accessToken == "") supportFragmentManager.beginTransaction().replace(R.id.main_frm, LoginFragment()).commitAllowingStateLoss()
+
+        mainActivity = this
     }
 
     private fun initBottoNav() {
