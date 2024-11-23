@@ -82,7 +82,7 @@ class CustomViewer {
         // Create the indirect light source and add it to the scene.
         val buffer = readAsset(context, "environments/venetian_crossroads_2k/${ibl}_ibl.ktx")
         KTX1Loader.createIndirectLight(modelViewer.engine, buffer).apply {
-            intensity = 5000_000f
+            intensity = 15_000f
             modelViewer.scene.indirectLight = this
 
             Log.d("CustomViewer", "Indirect Light loaded successfully")

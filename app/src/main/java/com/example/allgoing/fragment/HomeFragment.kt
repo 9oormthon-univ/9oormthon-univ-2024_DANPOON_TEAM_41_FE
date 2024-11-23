@@ -42,7 +42,7 @@ class HomeFragment : Fragment(){
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
-            loadGlb(requireContext() ,"cat");
+            loadGlb(requireContext() ,"cat3");
 
             loadIndirectLight(requireContext(), "venetian_crossroads_2k")
 //            loadEnviroment(requireContext(), "venetian_crossroads_2k")
