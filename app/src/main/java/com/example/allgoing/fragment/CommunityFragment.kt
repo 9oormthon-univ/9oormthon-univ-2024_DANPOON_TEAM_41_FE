@@ -9,11 +9,15 @@ import android.view.animation.LinearInterpolator
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.allgoing.Adapter.CommunityRVAdapter
+import com.example.allgoing.Adapter.SelecTraditionalRVAdapter
+import com.example.allgoing.Adapter.SelectShopRVAdapter
 import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentCommunityBinding
+import com.example.allgoing.databinding.ItemSelectTraditionalBinding
 import com.example.allgoing.dataclass.Community
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -69,6 +73,12 @@ class CommunityFragment : Fragment(){
                 .replace(R.id.main_frm,WriteReviewFragment()).commitAllowingStateLoss()
         }
 
+        binding.communitySelectShopLayout.setOnClickListener{
+            binding.communitySelectTraditionalRv.visibility = View.VISIBLE
+            binding.communityLocalDropIv.setImageResource(R.drawable.ic_toggle_up)
+            initRV()
+        }
+
 
         return binding.root
     }
@@ -121,6 +131,23 @@ class CommunityFragment : Fragment(){
         binding.communityRv.adapter = adapter
         adapter.notifyDataSetChanged()
     }
+
+    private fun initRV() {
+        var tradRVAdapter = SelecTraditionalRVAdapter()
+
+        tradRVAdapter.setClickListener(object : SelecTraditionalRVAdapter.MyClickListener{
+            override fun itemSelect(traditionalName : String) {
+                binding.communityLocalTv.text = traditionalName
+                binding.communityLocalDropIv.setImageResource(R.drawable.ic_drop)
+                binding.communitySelectTraditionalRv.visibility = View.GONE
+            }
+        })
+
+        binding.communitySelectTraditionalRv.adapter = tradRVAdapter
+        binding.communitySelectTraditionalRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+    }
+
     private fun loadSampleData(){
         CommunityDatas.add(Community("이건 커뮤니티 가게",4.5f,"맛있당",16,16))
         CommunityDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
