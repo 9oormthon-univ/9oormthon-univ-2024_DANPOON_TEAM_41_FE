@@ -23,6 +23,7 @@ class MypageFragment : Fragment(){
         if (MainActivity.accessToken != "") {
             binding.mypageTitleTv.text = MainActivity.name
             binding.mypageLoginBtnTv.visibility = View.GONE
+            binding.mypageEmailTv.visibility = View.VISIBLE
             binding.mypageEmailTv.text = MainActivity.email
         }
 

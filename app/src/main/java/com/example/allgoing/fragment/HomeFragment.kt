@@ -44,28 +44,6 @@ class HomeFragment : Fragment(){
         var acc1 = MainActivity.acc1
         var acc2 = MainActivity.acc2
 
-        RetrofitClient.service.getCatAssList(MainActivity.accessToken).enqueue(object : Callback<CatAssListRes> {
-            override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
-                if (response.body()?.information?.catItems != null){
-                    var item = response.body()?.information?.catItems
-                    when (item?.size){
-                        1 -> acc1 = item.get(0).itemId.toString()
-                        2 -> {
-                            acc1 = item.get(0).itemId.toString()
-                            acc2 = item.get(1).itemId.toString()
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
-
-
         customViewer.run {
             loadEntity()
             setSurfaceView(requireNotNull(surfaceView))

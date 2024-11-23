@@ -1,5 +1,6 @@
 package com.example.allgoing.fragment
 
+import android.app.appsearch.Migrator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.allgoing.Adapter.DetailNoticeRVAdapter
 import com.example.allgoing.Adapter.ShopRVAdapter
 import com.example.allgoing.CustomViewer
 import com.example.allgoing.R
@@ -38,24 +40,31 @@ class ShopFragment : Fragment() {
 
         initMenuRecyclerView()
         //loadInitialData()
-        loadSampleData()
+        load1Data()
 
         setSelectedTab(binding.shopAssIb, binding.shopAssTv)
 
         // 탭 버튼 클릭 리스너
         binding.shopAssIb.setOnClickListener {
             setSelectedTab(binding.shopAssIb, binding.shopAssTv)
+            load1Data()
+            initMenuRecyclerView()
             //fetchShopItemList("accessories") // 악세서리 데이터 조회
         }
         binding.shopShoesIb.setOnClickListener {
             setSelectedTab(binding.shopShoesIb, binding.shopShoesTv)
+            load2Data()
+            initMenuRecyclerView()
             //fetchShopItemList("shoes") // 신발 데이터 조회
         }
 
         // 뒤로 가기 버튼
         binding.shopBackIv.setOnClickListener {
-            Toast.makeText(context, "뒤로 가기 버튼 클릭", Toast.LENGTH_SHORT).show()
-            // 액티비티나 다른 프래그먼트로 이동 구현
+//            Toast.makeText(context, "뒤로 가기 버튼 클릭", Toast.LENGTH_SHORT).show()
+//            // 액티비티나 다른 프래그먼트로 이동 구현
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
+
         }
 
         init3D()
@@ -71,28 +80,6 @@ class ShopFragment : Fragment() {
 //        surfaceView.isVisible = true
         var acc1 = MainActivity.acc1
         var acc2 = MainActivity.acc2
-
-        RetrofitClient.service.getCatAssList(MainActivity.accessToken).enqueue(object : Callback<CatAssListRes> {
-            override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
-                if (response.body()?.information?.catItems != null){
-                    var item = response.body()?.information?.catItems
-                    when (item?.size){
-                        1 -> acc1 = item.get(0).itemId.toString()
-                        2 -> {
-                            acc1 = item.get(0).itemId.toString()
-                            acc2 = item.get(1).itemId.toString()
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
-
 
         customViewer.run {
             loadEntity()
@@ -143,6 +130,21 @@ class ShopFragment : Fragment() {
 
     private fun initMenuRecyclerView() {
         adapter = ShopRVAdapter(shopList)
+
+        adapter.setClickListener(object : ShopRVAdapter.MyClickListener{
+            override fun itemSelect(id: String) {
+                if (id<"8") {
+                    MainActivity.acc1 = id
+                } else {
+                    MainActivity.acc2 = id
+                }
+
+                (activity as MainActivity).supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frm,ShopFragment()).commitAllowingStateLoss()
+
+            }
+        })
+
         binding.shopItemRv.adapter = adapter
         binding.shopItemRv.layoutManager = GridLayoutManager(context, 4)
     }
@@ -210,12 +212,22 @@ class ShopFragment : Fragment() {
 //        })
 //    }
 
-    private fun loadSampleData(){
-        shopList.add(Shop(R.drawable.ic_shop_non,"접어두기"))
-        shopList.add(Shop(R.drawable.img_food,"원 테스트"))
-        shopList.add(Shop(R.drawable.ic_shop_non,"초록색 산타모자"))
-        shopList.add(Shop(R.drawable.img_food,"초록\n산타모자"))
-        shopList.add(Shop(R.drawable.img_food,"둘은 글 테스트"))
+    private fun load1Data(){
+        shopList.clear()
+        shopList.add(Shop(R.drawable.ic_shop_non,"벗어두기",""))
+        shopList.add(Shop(R.drawable.a1,"빨간 리본","1"))
+        shopList.add(Shop(R.drawable.a2,"대왕 리본\n넥타이","2"))
+        shopList.add(Shop(R.drawable.a3,"꽥꽥!\n오리","3"))
+        shopList.add(Shop(R.drawable.a4,"초록\n산타모자","4"))
+        shopList.add(Shop(R.drawable.a6,"빨강\n산타모자","6"))
     }
 
+
+    private fun load2Data(){
+        shopList.clear()
+        shopList.add(Shop(R.drawable.ic_shop_non,"벗어두기",""))
+        shopList.add(Shop(R.drawable.a7,"고양이 장화","7"))
+        shopList.add(Shop(R.drawable.a8,"빨강\n산타부츠","8"))
+        shopList.add(Shop(R.drawable.a9,"초록\n산타부츠","9"))
+    }
 }
