@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var accessToken :String = ""
+
     }
 
     var frag : Int = 0
