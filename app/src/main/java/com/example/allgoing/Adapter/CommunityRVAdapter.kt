@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.allgoing.databinding.ItemCommunityBinding
+import com.example.allgoing.retrofit.DTO.DataClass.Review
 import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 
 class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>() {
-    var communitylist = ArrayList<ReviewTraditionalRes.Community>()
+    var communitylist = ArrayList<Review>()
 
     fun interface MyItemClickListener{
-        fun onItemClick(community: ReviewTraditionalRes.Community)
+        fun onItemClick(community: Review)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -39,7 +40,7 @@ class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>(
     }
     inner class ViewHolder(private val binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(community: ReviewTraditionalRes.Community) {
+        fun bind(community: Review) {
             binding.itemCommunityShopTv.text = community.reviewTitle
             binding.itemCommunityBodyTv.text = community.reviewContent
             binding.itemCommunityStarIv.rating = community.star.toFloat()

@@ -13,13 +13,14 @@ import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentHistoryCommentBinding
 import com.example.allgoing.databinding.FragmentHistoryCommuBinding
 import com.example.allgoing.databinding.FragmentMapBinding
+import com.example.allgoing.retrofit.DTO.DataClass.Review
 import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 
 class HistoryCommentFragment : Fragment(){
     lateinit var binding: FragmentHistoryCommentBinding
 
     private lateinit var adapter : CommunityRVAdapter
-    var historycommentDatas = ArrayList<ReviewTraditionalRes.Community>()
+    var historycommentDatas = ArrayList<Review>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +43,7 @@ class HistoryCommentFragment : Fragment(){
         adapter = CommunityRVAdapter()
         adapter.communitylist = historycommentDatas
         adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
-            override fun onItemClick(community: ReviewTraditionalRes.Community) {
+            override fun onItemClick(community: Review) {
                 val intent = Intent(activity, CommunityActivity::class.java)
                 startActivity(intent)
             }
