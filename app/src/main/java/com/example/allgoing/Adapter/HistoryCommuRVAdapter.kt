@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.allgoing.Adapter.CommunityRVAdapter.MyItemClickListener
 import com.example.allgoing.databinding.ItemCommuBinding
-import com.example.allgoing.databinding.ItemCommunityBinding
-import com.example.allgoing.dataclass.Community
 import com.example.allgoing.dataclass.HistoryCommu
 
 class HistoryCommuRVAdapter() :RecyclerView.Adapter<HistoryCommuRVAdapter.ViewHolder>() {

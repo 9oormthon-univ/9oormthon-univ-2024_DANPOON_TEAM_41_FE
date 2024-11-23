@@ -13,8 +13,6 @@ import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentHistoryCommuBinding
-import com.example.allgoing.databinding.FragmentMapBinding
-import com.example.allgoing.dataclass.Community
 import com.example.allgoing.dataclass.HistoryCommu
 
 class HistoryCommuFragment : Fragment(){

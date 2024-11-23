@@ -1,18 +1,20 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class CatAssListRes(
-    val check: Boolean,
-    val information: Information
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: Information
 ) {
     data class Information(
-        val coin: Int,
-        val catItems: List<CatItem>
+        @SerializedName("coin") val coin: Int,
+        @SerializedName("catItems") val catItems: ArrayList<CatItem>
     ) {
         data class CatItem(
-            val itemId: Int,
-            val itemCategory: String,
-            val itemName: String,
-            val itemPrice: Int
+            @SerializedName("itemId") val itemId: Int,
+            @SerializedName("itemCategory") val itemCategory: String,
+            @SerializedName("itemName") val itemName: String,
+            @SerializedName("itemPrice") val itemPrice: Int
         )
     }
 }

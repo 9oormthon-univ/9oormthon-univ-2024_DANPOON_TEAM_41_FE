@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.allgoing.databinding.ItemCommunityBinding
-import com.example.allgoing.dataclass.Community
+import com.example.allgoing.retrofit.DTO.DataClass.Review
+import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 
 class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>() {
-    var communitylist = ArrayList<Community>()
+    var communitylist = ArrayList<Review>()
 
     fun interface MyItemClickListener{
-        fun onItemClick(community: Community)
+        fun onItemClick(community: Review)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -38,19 +40,22 @@ class CommunityRVAdapter() :RecyclerView.Adapter<CommunityRVAdapter.ViewHolder>(
     }
     inner class ViewHolder(private val binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(community: Community) {
-            binding.itemCommunityShopTv.text =community.community_shop
-            binding.itemCommunityBodyTv.text = community.community_body
-            binding.itemCommunityStarIv.rating = community.community_star.toFloat()
-            binding.itemCommunityLikeNumTv.text = community.community_likenum.toString()
-            binding.itemCommunityCommentNumTv.text = community.community_commentnum.toString()
-            if (community.community_Img != null) {
-                binding.itemCommunityImgIv.setImageResource(community.community_Img!!)
+        fun bind(community: Review) {
+            binding.itemCommunityShopTv.text = community.reviewTitle
+            binding.itemCommunityBodyTv.text = community.reviewContent
+            binding.itemCommunityStarIv.rating = community.star.toFloat()
+            binding.itemCommunityLikeNumTv.text = community.likeCount.toString()
+            val picList = community.reviewImages
+            if (picList.isNotEmpty()) {
+                // Glide를 사용하여 이미지 로드
                 binding.itemCommunityImgIv.visibility = View.VISIBLE
+                Glide.with(binding.itemCommunityImgIv.context)
+                    .load(picList[0].reviewImageUrl) // URL 로드
+                    .into(binding.itemCommunityImgIv) // 이미지뷰에 로드
             } else {
+                // 이미지가 없으면 숨김 처리
                 binding.itemCommunityImgIv.visibility = View.GONE
             }
         }
     }
-
 }

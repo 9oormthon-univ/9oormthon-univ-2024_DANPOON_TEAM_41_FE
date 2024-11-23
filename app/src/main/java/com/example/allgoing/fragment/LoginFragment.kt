@@ -66,7 +66,8 @@ class LoginFragment : Fragment() {
             override fun onResponse(call: Call<LoginRes>, response: Response<LoginRes>) {
                 Log.d("LoginFragment", response.body().toString())
 
-                if(response != null){
+                if(response.body()?.information != null){
+                    MainActivity.accessToken = response.body()!!.information.accessToken
                     goToMain()
                 }
             }

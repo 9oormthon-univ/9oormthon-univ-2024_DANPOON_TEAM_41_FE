@@ -10,7 +10,7 @@ data class StoreAllListRes(
         val storeIntro: String,
         val storeAddress: String,
         val star: Double,
-        val storeLatitude: Double,
-        val storeLongitude: Double
+        val storeLatitude: Int,
+        val storeLongitude: Int
     )
 }

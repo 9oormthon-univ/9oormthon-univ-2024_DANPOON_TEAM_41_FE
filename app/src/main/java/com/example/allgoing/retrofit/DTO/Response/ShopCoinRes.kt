@@ -2,12 +2,11 @@ package com.example.allgoing.retrofit.DTO.Response
 
 import com.google.gson.annotations.SerializedName
 
-data class ReviewCreateRes(
+data class ShopCoinRes(
     @SerializedName("check") val check: Boolean,
     @SerializedName("information") val information: Information
 ) {
     data class Information(
-        @SerializedName("title") val level: Int,
-        @SerializedName("content") val catExp: Int
+        @SerializedName("coin") val coin: Int
     )
 }

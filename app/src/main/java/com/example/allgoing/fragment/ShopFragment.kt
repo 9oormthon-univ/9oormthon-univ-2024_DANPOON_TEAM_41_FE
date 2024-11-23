@@ -1,24 +1,30 @@
 package com.example.allgoing.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.allgoing.Adapter.DetailHomeMenuRVAdapter
 import com.example.allgoing.Adapter.ShopRVAdapter
 import com.example.allgoing.CustomViewer
 import com.example.allgoing.R
-import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentShopBinding
 import com.example.allgoing.dataclass.Shop
+import com.example.allgoing.retrofit.RetrofitClient
+import com.example.allgoing.retrofit.DTO.Response.CatAssListRes
+import com.example.allgoing.retrofit.DTO.Response.CatExpRes
+import com.example.allgoing.retrofit.DTO.Response.ShopItemListRes
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ShopFragment : Fragment(){
-    lateinit var binding: FragmentShopBinding
-
+class ShopFragment : Fragment() {
+    private lateinit var binding: FragmentShopBinding
     private lateinit var adapter: ShopRVAdapter
     private val shopList = ArrayList<Shop>()
 
@@ -26,25 +32,29 @@ class ShopFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentShopBinding.inflate(inflater,container,false)
+    ): View {
+        binding = FragmentShopBinding.inflate(inflater, container, false)
 
         initMenuRecyclerView()
+        //loadInitialData()
         loadSampleData()
 
-        //탭 색 바꾸자잉
         setSelectedTab(binding.shopAssIb, binding.shopAssTv)
 
-        binding.shopAssIb.setOnClickListener{
+        // 탭 버튼 클릭 리스너
+        binding.shopAssIb.setOnClickListener {
             setSelectedTab(binding.shopAssIb, binding.shopAssTv)
+            //fetchShopItemList("accessories") // 악세서리 데이터 조회
         }
         binding.shopShoesIb.setOnClickListener {
             setSelectedTab(binding.shopShoesIb, binding.shopShoesTv)
+            //fetchShopItemList("shoes") // 신발 데이터 조회
         }
 
+        // 뒤로 가기 버튼
         binding.shopBackIv.setOnClickListener {
-            (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
+            Toast.makeText(context, "뒤로 가기 버튼 클릭", Toast.LENGTH_SHORT).show()
+            // 액티비티나 다른 프래그먼트로 이동 구현
         }
 
         init3D()
@@ -92,24 +102,87 @@ class ShopFragment : Fragment(){
         }
     }
 
-    private fun setSelectedTab(selectedButton: ImageButton, selectedText: TextView){
+     private fun setSelectedTab(selectedButton: ImageButton, selectedText: TextView) {
         shopTabSelection()
-
         selectedButton.isSelected = true
         selectedText.isSelected = true
     }
 
-    private fun shopTabSelection(){
+    private fun shopTabSelection() {
         binding.shopAssIb.isSelected = false
         binding.shopAssTv.isSelected = false
         binding.shopShoesIb.isSelected = false
         binding.shopShoesTv.isSelected = false
     }
+
     private fun initMenuRecyclerView() {
         adapter = ShopRVAdapter(shopList)
         binding.shopItemRv.adapter = adapter
-        binding.shopItemRv.layoutManager = GridLayoutManager(context,4)
+        binding.shopItemRv.layoutManager = GridLayoutManager(context, 4)
     }
+
+//    private fun loadInitialData() {
+//        fetchCatAssList() // 코인 및 착용 아이템 조회
+//        fetchShopItemList("accessories") // 기본적으로 악세서리 데이터 조회
+//    }
+//
+//
+//    private fun fetchCatAssList() {
+//        RetrofitClient.service.getCatAssList("Bearer [YourTokenHere]").enqueue(object : Callback<CatAssListRes> {
+//            override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
+//                Log.e("retrofit", "Failed to fetch CatAssList: $t")
+//            }
+//
+//            override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
+//                if (response.isSuccessful) {
+//                    val data = response.body()?.information
+//                    if (data != null) {
+//                        binding.shopMoneyTv.text = "Coins: ${data.coin}"
+//                        shopList.clear()
+//                        for (item in data.catItems) {
+//                            shopList.add(Shop(null, item.itemName))
+//                        }
+//                        adapter.notifyDataSetChanged()
+//                    } else {
+//                        Log.e("retrofit", "CatAssList response body is null")
+//                    }
+//                } else {
+//                    Log.e("retrofit", "CatAssList response error: ${response.errorBody()?.string()}")
+//                }
+//            }
+//        })
+//    }
+//
+//    private fun fetchShopItemList(category: String) {
+//        RetrofitClient.service.getShopItemList("Bearer [YourTokenHere]").enqueue(object : Callback<ShopItemListRes> {
+//            override fun onFailure(call: Call<ShopItemListRes>, t: Throwable) {
+//                Log.e("retrofit", "Failed to fetch ShopItemList: $t")
+//            }
+//
+//            override fun onResponse(call: Call<ShopItemListRes>, response: Response<ShopItemListRes>) {
+//                if (response.isSuccessful) {
+//                    val data = response.body()
+//                    if (data != null) {
+//                        val items = if (category == "accessories") data.accessories else data.shoes
+//                        shopList.clear()
+//                        for (item in items) {
+//                            shopList.add(
+//                                Shop(
+//                                    shop_item_Img = R.drawable.ic_shop_non, // 서버에서 이미지 URL 로드 시 Glide 사용
+//                                    shop_item_name = item.
+//                                )
+//                            )
+//                        }
+//                        adapter.notifyDataSetChanged()
+//                    } else {
+//                        Log.e("retrofit", "ShopItemList response body is null")
+//                    }
+//                } else {
+//                    Log.e("retrofit", "ShopItemList response error: ${response.errorBody()?.string()}")
+//                }
+//            }
+//        })
+//    }
 
     private fun loadSampleData(){
         shopList.add(Shop(R.drawable.ic_shop_non,"접어두기"))
@@ -118,4 +191,5 @@ class ShopFragment : Fragment(){
         shopList.add(Shop(R.drawable.img_food,"초록\n산타모자"))
         shopList.add(Shop(R.drawable.img_food,"둘은 글 테스트"))
     }
+
 }

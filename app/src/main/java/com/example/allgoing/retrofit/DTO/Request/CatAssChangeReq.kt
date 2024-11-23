@@ -1,5 +1,7 @@
 package com.example.allgoing.retrofit.DTO.Request
 
+import com.google.gson.annotations.SerializedName
+
 data class CatAssChangeReq(
-    val itemIds: List<Int>
+    @SerializedName("itemIds") val itemIds: ArrayList<Int>
 )

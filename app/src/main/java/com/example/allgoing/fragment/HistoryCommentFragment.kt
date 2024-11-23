@@ -13,13 +13,14 @@ import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentHistoryCommentBinding
 import com.example.allgoing.databinding.FragmentHistoryCommuBinding
 import com.example.allgoing.databinding.FragmentMapBinding
-import com.example.allgoing.dataclass.Community
+import com.example.allgoing.retrofit.DTO.DataClass.Review
+import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 
 class HistoryCommentFragment : Fragment(){
     lateinit var binding: FragmentHistoryCommentBinding
 
     private lateinit var adapter : CommunityRVAdapter
-    var historycommentDatas = ArrayList<Community>()
+    var historycommentDatas = ArrayList<Review>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,7 @@ class HistoryCommentFragment : Fragment(){
                 .replace(R.id.main_frm,MypageFragment()).commitAllowingStateLoss()
         }
         inithistorycommentRecyclerView()
-        loadSampleData()
+//        loadSampleData()
 
         return binding.root
     }
@@ -42,7 +43,7 @@ class HistoryCommentFragment : Fragment(){
         adapter = CommunityRVAdapter()
         adapter.communitylist = historycommentDatas
         adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
-            override fun onItemClick(community: Community) {
+            override fun onItemClick(community: Review) {
                 val intent = Intent(activity, CommunityActivity::class.java)
                 startActivity(intent)
             }
@@ -51,13 +52,13 @@ class HistoryCommentFragment : Fragment(){
         adapter.notifyDataSetChanged()
     }
 
-    private fun loadSampleData(){
-        historycommentDatas.add(Community("이건 댓글 가게",4.5f,"맛있당",16,16))
-        historycommentDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
-        historycommentDatas.add(Community("배고 가게",1f,"맛있당",6,2,R.drawable.img_food))
-        historycommentDatas.add(Community("파여 가게",2.5f,"맛있당",1,9,R.drawable.img_food))
-        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-    }
+//    private fun loadSampleData(){
+//        historycommentDatas.add(Community("이건 댓글 가게",4.5f,"맛있당",16,16))
+//        historycommentDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
+//        historycommentDatas.add(Community("배고 가게",1f,"맛있당",6,2,R.drawable.img_food))
+//        historycommentDatas.add(Community("파여 가게",2.5f,"맛있당",1,9,R.drawable.img_food))
+//        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//        historycommentDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//    }
 }

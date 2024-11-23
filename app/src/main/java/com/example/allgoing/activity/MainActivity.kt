@@ -13,6 +13,11 @@ import com.example.allgoing.fragment.MypageFragment
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
+    companion object {
+        var accessToken :String = ""
+
+    }
+
     var frag : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

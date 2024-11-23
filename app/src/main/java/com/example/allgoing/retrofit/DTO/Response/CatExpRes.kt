@@ -1,11 +1,13 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class CatExpRes(
-    val check: Boolean,
-    val information: Information
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: Information
 ) {
     data class Information(
-        val level: Int,
-        val catExp: Int
+        @SerializedName("level") val level: Int,
+        @SerializedName("catExp") val catExp: Int
     )
 }
