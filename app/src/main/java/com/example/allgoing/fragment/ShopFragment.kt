@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.allgoing.Adapter.DetailHomeMenuRVAdapter
 import com.example.allgoing.Adapter.ShopRVAdapter
+import com.example.allgoing.CustomViewer
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentShopBinding
@@ -46,7 +47,49 @@ class ShopFragment : Fragment(){
                 .replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
         }
 
+        init3D()
+
         return binding.root
+    }
+
+    var customViewer: CustomViewer = CustomViewer()
+
+    private fun init3D() {
+        var surfaceView = binding.shopModel
+//        surfaceView.isVisible = true
+
+        customViewer.run {
+            loadEntity()
+            setSurfaceView(requireNotNull(surfaceView))
+
+            //directory and model each as param
+            loadGlb(requireContext() ,"cat3");
+
+            loadIndirectLight(requireContext(), "venetian_crossroads_2k")
+//            loadEnviroment(requireContext(), "venetian_crossroads_2k")
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        customViewer.run {
+            onResume()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        customViewer.run {
+            onDestroy()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        customViewer.run {
+            onPause()
+        }
     }
 
     private fun setSelectedTab(selectedButton: ImageButton, selectedText: TextView){
