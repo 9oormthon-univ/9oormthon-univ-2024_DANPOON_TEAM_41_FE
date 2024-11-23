@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.allgoing.Interface.DialogInterface
 import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
+import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.activity.customDialog
 import com.example.allgoing.databinding.FragmentWriteCommuBinding
 
@@ -30,7 +31,7 @@ class WriteCommuFragment : Fragment(), DialogInterface {
 
         // 뒤로 가기 버튼 클릭 이벤트
         binding.writeCommuBackIv.setOnClickListener {
-            activity?.onBackPressed()
+            (activity as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,CommunityFragment()).commitAllowingStateLoss()
         }
 
         // 게시하기 버튼 클릭 시 다이얼로그 호출

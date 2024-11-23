@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.allgoing.databinding.ItemOrderCalendarBinding
 
-class OrderCalendarRVAdapter(date_list: ArrayList<Int>): RecyclerView.Adapter<OrderCalendarRVAdapter.ViewHolder>() {
+class OrderCalendarRVAdapter(date_list: ArrayList<String>): RecyclerView.Adapter<OrderCalendarRVAdapter.ViewHolder>() {
 
     var date_list = date_list
 

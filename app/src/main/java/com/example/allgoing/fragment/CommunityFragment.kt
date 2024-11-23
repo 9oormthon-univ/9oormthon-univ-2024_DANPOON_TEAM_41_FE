@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.allgoing.Adapter.CommunityRVAdapter
+import com.example.allgoing.Adapter.ReviewRVAdapter
 import com.example.allgoing.Adapter.SelecTraditionalRVAdapter
 import com.example.allgoing.Adapter.SelectShopRVAdapter
 import com.example.allgoing.R
@@ -32,10 +33,17 @@ import retrofit2.Response
 
 class CommunityFragment : Fragment(){
     lateinit var binding: FragmentCommunityBinding
+
     lateinit var addbutton: ExtendedFloatingActionButton
-    private lateinit var adapter: CommunityRVAdapter
+    lateinit var writebutton: ExtendedFloatingActionButton
+    lateinit var reviewbutton: ExtendedFloatingActionButton
+
+    private lateinit var Radapter: ReviewRVAdapter
+    private lateinit var Cadapter: CommunityRVAdapter
     private var communityDatas = ArrayList<Review>()
     private var boardDatas = ArrayList<Board>()
+
+    private var isAllbuttonVisble = false
 
     private var isReviewTabSelected = true // 현재 선택된 탭 상태를 저장
     var traditionalId: Int = 1
@@ -53,6 +61,7 @@ class CommunityFragment : Fragment(){
 
         // RecyclerView 초기화
         initRecyclerView()
+//        initcommunityRecyclerView()
 
         // 리뷰 탭 클릭 이벤트
         binding.communityReviewIb.setOnClickListener {
@@ -66,6 +75,10 @@ class CommunityFragment : Fragment(){
             setSelectedTab(binding.communityQnaIb, binding.communityQnaTv)
             isReviewTabSelected = false
             getBoardList() // 게시판 데이터 가져오기
+        }
+
+        binding.communityFloatPlusBtn.setOnClickListener{
+            toggleFloatingButtons()
         }
 
         binding.communityFloatCommuWriteBtn.setOnClickListener{
@@ -83,6 +96,17 @@ class CommunityFragment : Fragment(){
             initRV()
         }
 
+        //플로팅 버튼 초기화
+        addbutton = binding.communityFloatPlusBtn
+        writebutton = binding.communityFloatCommuWriteBtn
+        reviewbutton = binding.communityFloatReviewWriteBtn
+
+        writebutton.visibility = View.GONE
+        reviewbutton.visibility = View.GONE
+
+        addbutton.setOnClickListener{
+            toggleFloatingButtons()
+        }
 
         return binding.root
     }
@@ -142,10 +166,10 @@ class CommunityFragment : Fragment(){
     // RecyclerView 업데이트
     private fun updateRecyclerView() {
         if (isReviewTabSelected) {
-            adapter.communitylist.clear()
-            adapter.communitylist.addAll(communityDatas)
+            Radapter.communitylist.clear()
+            Radapter.communitylist.addAll(communityDatas)
         } else {
-            adapter.communitylist.clear()
+            Radapter.communitylist.clear()
             boardDatas.forEach { board ->
                 // 게시판 데이터를 Community 형식으로 매핑
                 val fakeCommunity = Review(
@@ -161,18 +185,31 @@ class CommunityFragment : Fragment(){
                     userId = 0,
                     storeId = 0
                 )
-                adapter.communitylist.add(fakeCommunity)
+                Radapter.communitylist.add(fakeCommunity)
             }
         }
-        adapter.notifyDataSetChanged()
+        Radapter.notifyDataSetChanged()
+    }
+
+    private fun toggleFloatingButtons(){
+        if(!isAllbuttonVisble){
+            writebutton.visibility = View.VISIBLE
+            reviewbutton.visibility = View.VISIBLE
+            rotateAddButton(45f)
+        }else {
+            writebutton.visibility = View.GONE
+            reviewbutton.visibility = View.GONE
+            rotateAddButton(0f)
+        }
+        isAllbuttonVisble = !isAllbuttonVisble
     }
 
     // RecyclerView 초기화
     private fun initRecyclerView() {
-        adapter = CommunityRVAdapter()
-        binding.communityRv.adapter = adapter
+        Cadapter = CommunityRVAdapter()
+        binding.communityRv.adapter = Cadapter
 
-        adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener {
+        Cadapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener {
             override fun onItemClick(community: Review) {
                 if (isReviewTabSelected) {
                     // 리뷰 상세 페이지로 이동
@@ -214,19 +251,19 @@ class CommunityFragment : Fragment(){
             .start()
     }
 
-    fun initcommunityRecyclerView(){
-        adapter = CommunityRVAdapter()
+//    fun initcommunityRecyclerView(){
+//        adapter = CommunityRVAdapter()
 //        adapter.communitylist = CommunityDatas
-        adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
-            override fun onItemClick(community: Review) {
-                val intent = Intent(activity, CommunityActivity::class.java)
-                startActivity(intent)
-            }
-        })
-
-        binding.communityRv.adapter = adapter
-        adapter.notifyDataSetChanged()
-    }
+//        adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
+//            override fun onItemClick(community: Review) {
+//                val intent = Intent(activity, CommunityActivity::class.java)
+//                startActivity(intent)
+//            }
+//        })
+//
+//        binding.communityRv.adapter = adapter
+//        adapter.notifyDataSetChanged()
+//    }
 
     private fun initRV() {
         var tradRVAdapter = SelecTraditionalRVAdapter()
