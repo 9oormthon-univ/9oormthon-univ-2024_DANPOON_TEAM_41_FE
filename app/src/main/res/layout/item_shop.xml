@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/item_shop_item_name_tv"
         android:layout_width="47dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:text="벗어두기"
         android:textSize="10sp"
         android:gravity="center"
