@@ -16,8 +16,7 @@ import com.example.allgoing.R
 import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentCommunityBinding
-import com.example.allgoing.dataclass.Community
-import com.example.allgoing.retrofit.DTO.Response.BoardListRes
+import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 import com.example.allgoing.retrofit.RetrofitClient
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,7 +32,8 @@ class CommunityFragment : Fragment(){
     var isAllbuttonVisble = false
 
     private lateinit var adapter : CommunityRVAdapter
-    var CommunityDatas = ArrayList<Community>()
+    var CommunityDatas = ArrayList<ReviewTraditionalRes.Community>()
+    var reviewId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,8 +42,9 @@ class CommunityFragment : Fragment(){
     ): View? {
         binding = FragmentCommunityBinding.inflate(inflater,container,false)
 
-        loadSampleData()
-
+//        loadSampleData()
+        getReviewTraditional(reviewId)
+        initcommunityRecyclerView()
 
         //탭 색 바꾸기
         setSelectedTab(binding.communityReviewIb, binding.communityReviewTv)
@@ -79,6 +80,50 @@ class CommunityFragment : Fragment(){
 
         return binding.root
     }
+
+    // Retrofit API 응답 처리
+    private fun getReviewTraditional(reviewId: Int) {
+        RetrofitClient.service.getReviewTraditional(MainActivity.accessToken, reviewId)
+            .enqueue(object : Callback<ReviewTraditionalRes> {
+                override fun onFailure(call: Call<ReviewTraditionalRes>?, t: Throwable?) {
+                    Log.e("retrofit", t.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<ReviewTraditionalRes>?,
+                    response: Response<ReviewTraditionalRes>?
+                ) {
+                    Log.d("retrofit", response.toString())
+                    Log.d("retrofit", response?.code().toString())
+                    Log.d("retrofit", response?.message().toString())
+
+                    if (response != null && response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            val communityList = responseBody.information ?: ArrayList()
+
+                            // RecyclerView 데이터 세팅
+                            if (communityList.isNotEmpty()) {
+                                adapter.communitylist.clear() // 기존 데이터를 초기화
+                                adapter.communitylist.addAll(communityList) // 새로운 데이터 추가
+                                adapter.notifyDataSetChanged() // RecyclerView 갱신
+                                initcommunityRecyclerView()
+                            } else {
+                                Log.e("retrofit", "Community list is empty.")
+                            }
+                        } else {
+                            Log.e("retrofit", "Response body is null.")
+                        }
+                    } else {
+                        Log.e(
+                            "retrofit",
+                            "Response failed or is null: ${response?.errorBody()?.string()}"
+                        )
+                    }
+                }
+            })
+    }
+
 
 
     private fun setSelectedTab(selectedButton: ImageButton, selectedText: TextView){
@@ -120,7 +165,7 @@ class CommunityFragment : Fragment(){
         adapter = CommunityRVAdapter()
         adapter.communitylist = CommunityDatas
         adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
-            override fun onItemClick(community: Community) {
+            override fun onItemClick(community: ReviewTraditionalRes.Community) {
                 val intent = Intent(activity, CommunityActivity::class.java)
                 startActivity(intent)
             }
@@ -129,13 +174,13 @@ class CommunityFragment : Fragment(){
         binding.communityRv.adapter = adapter
         adapter.notifyDataSetChanged()
     }
-    private fun loadSampleData(){
-        CommunityDatas.add(Community("이건 커뮤니티 가게",4.5f,"맛있당",16,16))
-        CommunityDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("배고 가게",1f,"맛있당",6,2,R.drawable.img_food))
-        CommunityDatas.add(Community("파여 가게",2.5f,"맛있당",1,9,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-    }
+//    private fun loadSampleData(){
+//        CommunityDatas.add(Community("이건 커뮤니티 가게",4.5f,"맛있당",16,16))
+//        CommunityDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
+//        CommunityDatas.add(Community("배고 가게",1f,"맛있당",6,2,R.drawable.img_food))
+//        CommunityDatas.add(Community("파여 가게",2.5f,"맛있당",1,9,R.drawable.img_food))
+//        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
+//    }
 }
