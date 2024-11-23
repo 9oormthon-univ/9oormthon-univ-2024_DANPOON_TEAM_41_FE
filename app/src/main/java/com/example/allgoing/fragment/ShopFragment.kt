@@ -133,7 +133,7 @@ class ShopFragment : Fragment() {
 
         adapter.setClickListener(object : ShopRVAdapter.MyClickListener{
             override fun itemSelect(id: String) {
-                if (id<"8") {
+                if (id<"7") {
                     MainActivity.acc1 = id
                 } else {
                     MainActivity.acc2 = id
