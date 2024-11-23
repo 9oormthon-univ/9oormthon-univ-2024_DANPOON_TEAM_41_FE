@@ -24,9 +24,11 @@ import com.example.allgoing.retrofit.DTO.Response.BoardListRes
 import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 import com.example.allgoing.retrofit.RetrofitClient
 import com.example.allgoing.databinding.ItemSelectTraditionalBinding
-import com.example.allgoing.dataclass.Community
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CommunityFragment : Fragment(){
     lateinit var binding: FragmentCommunityBinding
@@ -42,7 +44,7 @@ class CommunityFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentCommunityBinding.inflate(inflater, container, false)
 
         // 초기 탭 설정
@@ -66,11 +68,11 @@ class CommunityFragment : Fragment(){
             getBoardList() // 게시판 데이터 가져오기
         }
 
-        writebutton.setOnClickListener{
+        binding.communityFloatCommuWriteBtn.setOnClickListener{
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm,WriteCommuFragment()).commitAllowingStateLoss()
         }
-        reviewbutton.setOnClickListener{
+        binding.communityFloatReviewWriteBtn.setOnClickListener{
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm,WriteReviewFragment()).commitAllowingStateLoss()
         }
@@ -202,7 +204,7 @@ class CommunityFragment : Fragment(){
         binding.communityQnaIb.isSelected = false
         binding.communityQnaTv.isSelected = false
     }
-}
+
 
     private fun rotateAddButton(targetRotation: Float) {
         addbutton.animate()
@@ -214,9 +216,9 @@ class CommunityFragment : Fragment(){
 
     fun initcommunityRecyclerView(){
         adapter = CommunityRVAdapter()
-        adapter.communitylist = CommunityDatas
+//        adapter.communitylist = CommunityDatas
         adapter.setMyItemClickListener(object : CommunityRVAdapter.MyItemClickListener{
-            override fun onItemClick(community: Community) {
+            override fun onItemClick(community: Review) {
                 val intent = Intent(activity, CommunityActivity::class.java)
                 startActivity(intent)
             }
@@ -240,15 +242,5 @@ class CommunityFragment : Fragment(){
         binding.communitySelectTraditionalRv.adapter = tradRVAdapter
         binding.communitySelectTraditionalRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-    }
-
-    private fun loadSampleData(){
-        CommunityDatas.add(Community("이건 커뮤니티 가게",4.5f,"맛있당",16,16))
-        CommunityDatas.add(Community("맛없는 가게",5f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("배고 가게",1f,"맛있당",6,2,R.drawable.img_food))
-        CommunityDatas.add(Community("파여 가게",2.5f,"맛있당",1,9,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
-        CommunityDatas.add(Community("맛있는 가게",4.9f,"맛있당",1,2,R.drawable.img_food))
     }
 }
