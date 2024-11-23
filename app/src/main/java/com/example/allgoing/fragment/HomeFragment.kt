@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.allgoing.CustomViewer
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentHomeBinding
@@ -24,6 +25,22 @@ class HomeFragment : Fragment(){
                 .replace(R.id.main_frm,ShopFragment()).commitAllowingStateLoss()
         }
 
+//        init3D()
+
         return binding.root
+    }
+
+    var customViewer: CustomViewer = CustomViewer()
+
+    private fun init3D() {
+        var surfaceView = binding.homeModel
+        customViewer.run {
+            loadEntity()
+            setSurfaceView(requireNotNull(surfaceView))
+
+            //directory and model each as param
+            loadGltf(requireContext() ,"cat");
+        }
+
     }
 }
