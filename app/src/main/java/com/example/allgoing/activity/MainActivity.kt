@@ -15,7 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var accessToken :String = ""
-
+        var name = "로그인 후 이용하세요"
+        var email = "test@test.test"
+        var acc1 = ""
+        var acc2 = ""
     }
 
     var frag : Int = 0

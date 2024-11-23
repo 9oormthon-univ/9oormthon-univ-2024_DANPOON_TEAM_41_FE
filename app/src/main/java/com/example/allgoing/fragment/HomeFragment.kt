@@ -41,11 +41,21 @@ class HomeFragment : Fragment(){
     private fun init3D() {
         var surfaceView = binding.homeModel
 //        surfaceView.isVisible = true
-        var model = "cat"
+        var acc1 = MainActivity.acc1
+        var acc2 = MainActivity.acc2
 
         RetrofitClient.service.getCatAssList(MainActivity.accessToken).enqueue(object : Callback<CatAssListRes> {
             override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
-                TODO("Not yet implemented")
+                if (response.body()?.information?.catItems != null){
+                    var item = response.body()?.information?.catItems
+                    when (item?.size){
+                        1 -> acc1 = item.get(0).itemId.toString()
+                        2 -> {
+                            acc1 = item.get(0).itemId.toString()
+                            acc2 = item.get(1).itemId.toString()
+                        }
+                    }
+                }
             }
 
             override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
@@ -61,7 +71,7 @@ class HomeFragment : Fragment(){
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
-            loadGlb(requireContext() ,model);
+            loadGlb(requireContext() ,"cat_$acc1$acc2");
 
             loadIndirectLight(requireContext(), "venetian_crossroads_2k")
 //            loadEnviroment(requireContext(), "venetian_crossroads_2k")
