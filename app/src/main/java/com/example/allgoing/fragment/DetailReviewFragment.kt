@@ -11,7 +11,6 @@ import com.example.allgoing.Adapter.DetailReviewRVAdapter
 import com.example.allgoing.activity.CommunityActivity
 import com.example.allgoing.databinding.FragmentDetailHomeBinding
 import com.example.allgoing.databinding.FragmentDetailReviewBinding
-import com.example.allgoing.dataclass.Community
 import com.example.allgoing.dataclass.DetailReview
 
 class DetailReviewFragment : Fragment(){

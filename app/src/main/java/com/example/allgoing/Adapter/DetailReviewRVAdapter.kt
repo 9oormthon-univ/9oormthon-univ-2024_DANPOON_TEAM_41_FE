@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.allgoing.Adapter.CommunityRVAdapter.MyItemClickListener
 import com.example.allgoing.databinding.ItemCommunityBinding
 import com.example.allgoing.databinding.ItemDetailReviewBinding
-import com.example.allgoing.dataclass.Community
 import com.example.allgoing.dataclass.DetailReview
 
 class DetailReviewRVAdapter : RecyclerView.Adapter<DetailReviewRVAdapter.ViewHolder>() {

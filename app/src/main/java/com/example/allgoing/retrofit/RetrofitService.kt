@@ -42,12 +42,12 @@ interface RetrofitService {
         @Body request: LoginReq
     ): Call<LoginRes>
 
-    //로그아웃
-    @POST("/auth/logout")
-    fun postLogout(
-        @Header("authorization") authorization : String?,
-        @Body request:
-    ): Call<>
+//    //로그아웃
+//    @POST("/auth/logout")
+//    fun postLogout(
+//        @Header("authorization") authorization : String?,
+//        @Body request:LogoutReq
+//    ): Call<LogoutRes>
 
     // 회원 탈퇴
     @DELETE("/auth/exit")
@@ -57,24 +57,24 @@ interface RetrofitService {
 
 
     //사용자
-
-    //닉네임 및 이메일 정보 수정
-    @PATCH("/api/v1/user/profile")
-    fun patchUserProfile(
-        @Body request: PinModifyRequest
-    ): Call<CommentFindReponse>
-
-    //닉네임 및 이메일 정보 조회 --> X
-    @GET("/api/v1/user/profile")
-    fun getUserProfile(
-    ): Call<CommentFindReponse>
-
-    //닉네임 중복 확인 --> X
-    @POST("/api/v1/user/nickname")
-    fun postUserNickname(
-        @Body request: PinModifyRequest
-    ): Call<>
-
+//
+//    //닉네임 및 이메일 정보 수정
+//    @PATCH("/api/v1/user/profile")
+//    fun patchUserProfile(
+//        @Body request: ChangeProfileReq
+//    ): Call<ChangeProfileRes>
+//
+//    //닉네임 및 이메일 정보 조회 --> X
+//    @GET("/api/v1/user/profile")
+//    fun getUserProfile(
+//    ): Call<ProfileRes>
+//
+//    //닉네임 중복 확인 --> X
+//    @POST("/api/v1/user/nickname")
+//    fun postUserNickname(
+//        @Body request: CheckDupNameReq
+//    ): Call<CheckDupNameRes>
+//
 
     // 고양이
 
@@ -83,6 +83,7 @@ interface RetrofitService {
     fun getCatExp(
         @Header("authorization") authorization: String
     ): Call<CatExpRes>
+
 
     //착용 악세서리 목록 조회
     @GET("/api/v1/cat/my")
@@ -103,13 +104,13 @@ interface RetrofitService {
         @Header("authorization") authorization: String
     ): Call<ShopItemListRes>
 
-    //아이템 구매
-    @POST("/api/v1/shop/{itemId}")
-    fun postUserNickname(
-        @Header("authorization") authorization: String,
-        @Path(value = "itemId") itemId: Int,
-        @Body request: PinModifyRequest
-    ): Call<>
+//    //아이템 구매
+//    @POST("/api/v1/shop/{itemId}")
+//    fun postShopBuyItem(
+//        @Header("authorization") authorization: String,
+//        @Path(value = "itemId") itemId: Int,
+//        @Body request: ShopBuyItemReq
+//    ): Call<ShopBuyItemRes>
 
     //코인 보유 수 조회
     @GET("/api/v1/shop/coin")
@@ -120,12 +121,12 @@ interface RetrofitService {
 
     //게시판
 
-    //게시판 글 작성 --X
-    @POST("/api/v1/post/new")
-    fun postWrite(
-        @Header("authorization") authorization: String,
-        @Body request: PostNewReq
-    ): Call<>
+//    //게시판 글 작성 --X
+//    @POST("/api/v1/post/new")
+//    fun postWrite(
+//        @Header("authorization") authorization: String,
+//        @Body request: BoardWriteReq
+//    ): Call<BoardWriteRes>
 
     //게시판 목록 조회 -> X
     @GET("/api/v1/post/list")
@@ -133,61 +134,61 @@ interface RetrofitService {
         @Header("authorization") authorization: String
     ): Call<BoardListRes>
 
-    //게시판 글 상세 조회 -> X
-    @GET("/api/v1/post/{postId}")
-    fun getBoardDetailList(
-        @Header("authorization") authorization: String,
-        @Path(value = "postId") postId: Int
-    ): Call<>
-
-    //게시글 삭제 --> X
-    @DELETE("/api/v1/post/{postId}")
-    fun deleteBoard(
-        @Header("authorization") authorization: String,
-        @Path("postId") postId: Int
-    ): Call<>
-
-    //게시글 댓글 작성 --> X
-    @POST("/api/v1/post/{postId}/comment")
-    fun postComment(
-        @Header("authorization") authorization: String,
-        @Path(value = "postId") postId: Int,
-        @Body request:
-    ): Call<>
-
-    //게시판 댓글 삭제
-    @DELETE("/api/v1/post/{postId}/{commentId}")
-    fun deleteComment(
-        @Header("authorization") authorization: String,
-        @Path("postId") postId: Int,
-        @Path("commentId") commentId: Int
-    ): Call<>
-
-    //게시판 좋아요 수정 -> X
-    @POST("/api/v1/post/{postId}/like")
-    fun postBoardLikeChange(
-        @Header("authorization") authorization: String,
-        @Path(value = "postId") postId: Int,
-        @Body request:
-    ): Call<>
-
-    //내가 쓴 게시글 목록 조회 -> X
-    @GET("/api/v1/post/my/list")
-    fun getMyBoardList(
-        @Header("authorization") authorization: String
-    ): Call<>
-
-    //좋아요 누른 게시글 목록 조회 -> X
-    @GET("/api/v1/post/my/like")
-    fun getMyLikeList(
-        @Header("authorization") authorization: String
-    ): Call<>
-
-    //댓글 단 게시글 목록 조회 -> X
-    @GET("/api/v1/post/my/comment")
-    fun getMyCommentList(
-        @Header("authorization") authorization: String
-    ): Call<>
+//    //게시판 글 상세 조회 -> X
+//    @GET("/api/v1/post/{postId}")
+//    fun getBoardDetailList(
+//        @Header("authorization") authorization: String,
+//        @Path(value = "postId") postId: Int
+//    ): Call<BoardDetailListRes>
+//
+//    //게시글 삭제 --> X
+//    @DELETE("/api/v1/post/{postId}")
+//    fun deleteBoard(
+//        @Header("authorization") authorization: String,
+//        @Path("postId") postId: Int
+//    ): Call<BoardDeleteRes>
+//
+//    //게시글 댓글 작성 --> X
+//    @POST("/api/v1/post/{postId}/comment")
+//    fun postComment(
+//        @Header("authorization") authorization: String,
+//        @Path(value = "postId") postId: Int,
+//        @Body request:BoardCommentWriteReq
+//    ): Call<BoardCommentWriteRes>
+//
+//    //게시판 댓글 삭제
+//    @DELETE("/api/v1/post/{postId}/{commentId}")
+//    fun deleteComment(
+//        @Header("authorization") authorization: String,
+//        @Path("postId") postId: Int,
+//        @Path("commentId") commentId: Int
+//    ): Call<BoardCommentDeleteRes>
+//
+//    //게시판 좋아요 수정 -> X
+//    @POST("/api/v1/post/{postId}/like")
+//    fun postBoardLikeChange(
+//        @Header("authorization") authorization: String,
+//        @Path(value = "postId") postId: Int,
+//        @Body request:BoardLikeChangeReq
+//    ): Call<BoardLikeChangeRes>
+//
+//    //내가 쓴 게시글 목록 조회 -> X
+//    @GET("/api/v1/post/my/list")
+//    fun getMyBoardList(
+//        @Header("authorization") authorization: String
+//    ): Call<MyBoardListRes>
+//
+//    //좋아요 누른 게시글 목록 조회 -> X
+//    @GET("/api/v1/post/my/like")
+//    fun getMyLikeList(
+//        @Header("authorization") authorization: String
+//    ): Call<BoardMineLikeRes>
+//
+//    //댓글 단 게시글 목록 조회 -> X
+//    @GET("/api/v1/post/my/comment")
+//    fun getMyCommentList(
+//        @Header("authorization") authorization: String
+//    ): Call<BoardMineCommentRes>
 
     //store
 
@@ -304,13 +305,13 @@ interface RetrofitService {
         @Path(value = "storeId") storeId: Int
     ): Call<ReservationProductRes>
 
-    //예약하기 --X
-    @POST("/api/v1/reservation/{storeId}")
-    fun PostReservation(
-        @Header("authorization") authorization: String,
-        @Path(value = "storeId") storeId: Int,
-        @Body request: PinModifyRequest
-    ): Call<ReviewLikeRes>
+//    //예약하기 --X
+//    @POST("/api/v1/reservation/{storeId}")
+//    fun PostReservation(
+//        @Header("authorization") authorization: String,
+//        @Path(value = "storeId") storeId: Int,
+//        @Body request: ReservationReq
+//    ): Call<ReservationRes>
 
     // 예약 취소
     @PATCH("/api/v1/reservation/{reservationId}")
