@@ -1,6 +1,7 @@
 package com.example.allgoing.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,11 +35,15 @@ class MapFragment : Fragment(){
     }
 
     private fun initMap() {
-
         KakaoMapSdk.init(requireContext(), "6464ccc167d7d34887af472c191a971f")
         mapView = binding.kakaoMapView
-
+        mapView?.let {
+            Log.d("MapFragment", "MapView initialized successfully")
+        } ?: run {
+            Log.e("MapFragment", "Failed to initialize MapView")
+        }
     }
+
     override fun onDestroyView() {
         (mapView?.parent as? ViewGroup)?.removeView(mapView)
         mapView = null
