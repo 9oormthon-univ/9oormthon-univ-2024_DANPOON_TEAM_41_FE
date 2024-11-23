@@ -1,13 +1,15 @@
 package com.example.allgoing.retrofit.DTO.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class StoreAllListRes(
-    val check: Boolean,
-    val information: List<Information>
+    @SerializedName("check") val check: Boolean,
+    @SerializedName("information") val information: List<Information>
 ) {
     data class Information(
-        val traditionalId: Int,
-        val traditionalName: String,
-        val traditionalLatitude: Int,
-        val traditionalLongitude: Int
+        @SerializedName("traditionalId") val traditionalId: Int,
+        @SerializedName("traditionalName") val traditionalName: String,
+        @SerializedName("traditionalLatitude") val traditionalLatitude: Int,
+        @SerializedName("traditionalLongitude") val traditionalLongitude: Int
     )
 }
