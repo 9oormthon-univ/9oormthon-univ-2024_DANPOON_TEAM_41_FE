@@ -34,7 +34,9 @@ class DetailHomeFragment : Fragment(){
     private val detailhomemenuList = ArrayList<DetailHomeMenu>()
     private val detailhomeimgList = ArrayList<DetailHomeImg>()
 
-    var storeId: Int = 1
+    companion object {
+        var storeId = 1
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,7 @@ class DetailHomeFragment : Fragment(){
             toggleDetailView()
         }
 
+        getStoreHome(storeId)
 
         loadMenuData()
         initMenuRecyclerView()
@@ -83,7 +86,7 @@ class DetailHomeFragment : Fragment(){
     }
 
     private fun getStoreHome(storeId: Int) {
-        RetrofitClient.service.getStoreHome(storeId).enqueue(object : Callback<StoreHomeRes> {
+        RetrofitClient.service.getStoreHome(MainActivity.accessToken,storeId).enqueue(object : Callback<StoreHomeRes> {
             override fun onResponse(call: Call<StoreHomeRes>, response: Response<StoreHomeRes>) {
                 if (response.isSuccessful) {
                     response.body()?.let { storeHome ->
@@ -145,6 +148,50 @@ class DetailHomeFragment : Fragment(){
         detailhomeimgList.add(DetailHomeImg(R.drawable.img_food7))
         detailhomeimgList.add(DetailHomeImg(R.drawable.img_food5))
         detailhomeimgList.add(DetailHomeImg(R.drawable.img_food6))
+    }
+
+    private fun initImg(store : Int){
+        RetrofitClient.service.getStoreHome(MainActivity.accessToken, store).enqueue(object : Callback<StoreHomeRes>{
+            override fun onResponse(call: Call<StoreHomeRes>, response: Response<StoreHomeRes>) {
+                if (response.body()?.information?.storeImages != null) {
+                    val info = response.body()?.information?.storeImages
+
+                    when(info?.size){
+                        0 -> DetailFragment.img1 = ""
+                        1 -> DetailFragment.img1 = info!!.get(0).storeImageUrl
+                        2 -> {
+                            DetailFragment.img1 = info!!.get(0).storeImageUrl
+                            DetailFragment.img2 = info!!.get(1).storeImageUrl
+                        }
+                        3 -> {
+                            DetailFragment.img1 = info!!.get(0).storeImageUrl
+                            DetailFragment.img2 = info!!.get(1).storeImageUrl
+                            DetailFragment.img3 = info!!.get(2).storeImageUrl
+                        }
+                        4 -> {
+                            DetailFragment.img1 = info!!.get(0).storeImageUrl
+                            DetailFragment.img2 = info!!.get(1).storeImageUrl
+                            DetailFragment.img3 = info!!.get(2).storeImageUrl
+                            DetailFragment.img4 = info!!.get(3).storeImageUrl
+                        }
+                        else -> {
+                            DetailFragment.img1 = info!!.get(0).storeImageUrl
+                            DetailFragment.img2 = info!!.get(1).storeImageUrl
+                            DetailFragment.img3 = info!!.get(2).storeImageUrl
+                            DetailFragment.img4 = info!!.get(3).storeImageUrl
+                            DetailFragment.img5 = info!!.get(4).storeImageUrl
+                        }
+                    }
+
+                    DetailFragment().setImg()
+                }
+            }
+
+            override fun onFailure(call: Call<StoreHomeRes>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
 }

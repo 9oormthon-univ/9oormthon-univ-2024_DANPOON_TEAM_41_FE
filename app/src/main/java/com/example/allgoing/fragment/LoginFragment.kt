@@ -58,6 +58,7 @@ class LoginFragment : Fragment() {
 
                 MainActivity.name = user.kakaoAccount?.profile?.nickname.toString()
                 MainActivity.email = user.kakaoAccount?.email.toString()
+                MainActivity.img = user.kakaoAccount?.profile?.thumbnailImageUrl.toString()
 
                 login(user.kakaoAccount?.email.toString())
             }

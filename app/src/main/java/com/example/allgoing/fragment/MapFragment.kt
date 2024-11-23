@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMapBinding
@@ -316,6 +317,10 @@ class MapFragment : Fragment(){
                                                         if (response.body()?.information != null) {
 
                                                             val info = response.body()!!.information
+
+                                                            Glide.with(requireContext()).load(info.storeImageUrl).into(binding.mapBottomImg)
+
+                                                            DetailHomeFragment.storeId = shopId
 
                                                             binding.mapBottom.visibility = View.VISIBLE
                                                             binding.mapBottomTitle.text = info.storeName

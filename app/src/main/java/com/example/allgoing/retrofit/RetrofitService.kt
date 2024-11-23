@@ -208,6 +208,7 @@ interface RetrofitService {
     //가게 홈 조회
     @GET("/api/v1/store/home/{storeId}")
     fun getStoreHome(
+        @Header("Authorization") authorization: String,
         @Path(value = "storeId") storeId: Int
     ): Call<StoreHomeRes>
 

@@ -7,6 +7,7 @@ import com.example.allgoing.R
 import com.example.allgoing.databinding.ActivityMainBinding
 import com.example.allgoing.fragment.CommunityFragment
 import com.example.allgoing.fragment.HomeFragment
+import com.example.allgoing.fragment.LoginFragment
 import com.example.allgoing.fragment.MapFragment
 import com.example.allgoing.fragment.MypageFragment
 
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         var email = "test@test.test"
         var acc1 = ""
         var acc2 = ""
+
+        var img = ""
     }
 
     var frag : Int = 0
@@ -46,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
 
         initBottoNav()
+
+        if(accessToken == "") supportFragmentManager.beginTransaction().replace(R.id.main_frm, LoginFragment()).commitAllowingStateLoss()
     }
 
     private fun initBottoNav() {

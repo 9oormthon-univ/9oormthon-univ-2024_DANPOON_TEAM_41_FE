@@ -14,7 +14,7 @@ data class StoreHomeRes(
         @SerializedName("storePhone") val storePhone: String,
         @SerializedName("star") val star: Double,
         @SerializedName("products") val products: ArrayList<Product>,
-        @SerializedName("storeImages") val storeImages: ArrayList<Any>,
+        @SerializedName("storeImages") val storeImages: ArrayList<a>,
         @SerializedName("storeInfos") val storeInfos: ArrayList<StoreInfo>
     ) {
         data class Product(
@@ -29,6 +29,11 @@ data class StoreHomeRes(
             @SerializedName("openTime") val openTime: String,
             @SerializedName("closeTime") val closeTime: String,
             @SerializedName("open") val `open`: Boolean
+        )
+
+        data class a(
+            @SerializedName("storeImageUrl") val storeImageUrl : String,
+            @SerializedName("storeImageType") val storeImageType : String
         )
     }
 }
