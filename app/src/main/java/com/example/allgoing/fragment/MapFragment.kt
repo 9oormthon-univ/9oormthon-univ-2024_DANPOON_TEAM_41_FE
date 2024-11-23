@@ -13,16 +13,23 @@ import androidx.fragment.app.Fragment
 import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentMapBinding
+import com.example.allgoing.retrofit.DTO.Response.StoreAllListRes
+import com.example.allgoing.retrofit.DTO.Response.TraditionalListRes
+import com.example.allgoing.retrofit.RetrofitClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.kakao.vectormap.GestureType
 import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMap.OnCameraMoveEndListener
 import com.kakao.vectormap.KakaoMap.OnLabelClickListener
+import com.kakao.vectormap.KakaoMap.OnMapViewInfoChangeListener
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapGravity
 import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.MapView
+import com.kakao.vectormap.camera.CameraPosition
 import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.internal.ILabelDelegate
@@ -35,6 +42,9 @@ import com.kakao.vectormap.label.LabelStyles
 import com.kakao.vectormap.label.OnLabelCreateCallback
 import com.kakao.vectormap.mapwidget.MapWidgetOptions
 import com.kakao.vectormap.mapwidget.component.GuiImage
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
 
 class MapFragment : Fragment(){
@@ -98,6 +108,17 @@ class MapFragment : Fragment(){
 
                         kakaoMap = map
                         position
+
+                        map.setOnCameraMoveEndListener(object : OnCameraMoveEndListener{
+                            override fun onCameraMoveEnd(
+                                p0: KakaoMap,
+                                p1: CameraPosition,
+                                p2: GestureType
+                            ) {
+                                setStore()
+                            }
+
+                        })
                     }
 
                     override fun getPosition(): LatLng {
@@ -159,61 +180,74 @@ class MapFragment : Fragment(){
     private fun initCat(loc:LatLng) {
 
         val styles = kakaoMap?.labelManager?.addLabelStyles(LabelStyles.from(LabelStyle.from(R.drawable.img_cat_top)))
-        val options = LabelOptions.from(loc).setStyles(styles)
+        val options = LabelOptions.from(loc).setTag("cat").setStyles(styles)
 
         val layer = kakaoMap?.labelManager?.getLayer()
 
         layer?.addLabel(options)
 
-        test()
     }
 
-    private fun setStore(loc_list:ArrayList<LatLng>) {
-        kakaoMap?.labelManager?.addLayer(LabelLayerOptions.from("store"))
-        val layer = kakaoMap?.labelManager?.getLayer("store")
 
-        val styles = LabelStyles.from(LabelStyle.from(R.drawable.img_store_pin))
+    private fun setStore() {
+        var res : ArrayList<TraditionalListRes.Information> = arrayListOf()
 
-        val storeStyles = kakaoMap?.labelManager?.addLabelStyles(styles)
+        RetrofitClient.service.getTraditionalList("Bearer "+MainActivity.accessToken).enqueue(object : Callback<TraditionalListRes> {
+            override fun onResponse(
+                call: Call<TraditionalListRes>,
+                response: Response<TraditionalListRes>
+            ) {
+                Log.d("MapFragment api 1",response.body().toString())
+                Log.d("MapFragment api 2",response.toString())
+                Log.d("MapFragment api 3",MainActivity.accessToken)
+                if (response.body() != null) {
+                    res = response.body()!!.information
 
-        for(index in 0..(loc_list.size-1)) {
-            var loc = loc_list[index]
-            val options = LabelOptions.from("store"+index.toString(),loc).setStyles(storeStyles).setTag(index)
+                    kakaoMap?.labelManager?.addLayer(LabelLayerOptions.from("store"))
+                    val layer = kakaoMap?.labelManager?.getLayer("store")
 
-            layer?.addLabel(options
-                , object : OnLabelCreateCallback{
-                override fun onLabelCreated(layer: LabelLayer?, label: Label?) {
-                    if (label != null) {
-                        kakaoMap?.setOnLabelClickListener(object : OnLabelClickListener{
-                            override fun onLabelClicked(
-                                kakaoMap: KakaoMap,
-                                layer: LabelLayer?,
-                                label: Label
-                            ): Boolean {
-                                binding.mapBottom.visibility = View.VISIBLE
+                    val styles = LabelStyles.from(LabelStyle.from(R.drawable.img_store_pin))
 
-                                return true
-                            }
-                        })
+                    val storeStyles = kakaoMap?.labelManager?.addLabelStyles(styles)
+
+                    for(index in 0..(res.size-1)) {
+                        Log.d("MapFragment", "store"+index.toString()+ "")
+
+                        var loc = LatLng.from(res[index].traditionalLatitude.toDouble(),res[index].traditionalLongitude.toDouble())
+                        val options = LabelOptions.from("store"+index.toString(),loc).setTag(index).setStyles(storeStyles).setTag(index)
+
+                        layer?.addLabel(options
+                            , object : OnLabelCreateCallback{
+                                override fun onLabelCreated(layer: LabelLayer?, label: Label?) {
+                                    if (label != null) {
+                                        Log.d("MapFragment", "store"+index.toString()+ "" + loc.toString())
+                                        kakaoMap?.setOnLabelClickListener(object : OnLabelClickListener{
+                                            override fun onLabelClicked(
+                                                kakaoMap: KakaoMap,
+                                                layer: LabelLayer?,
+                                                label: Label
+                                            ): Boolean {
+                                                if (label.tag != "cat"){
+                                                    binding.mapBottom.visibility = View.VISIBLE
+                                                }
+
+                                                return true
+                                            }
+                                        })
+                                    }
+                                }
+
+                            })
                     }
                 }
+            }
 
-            })
-        }
+            override fun onFailure(call: Call<TraditionalListRes>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
-
-
-    private fun test(){
-        var loc_list : ArrayList<LatLng> = arrayListOf(
-            LatLng.from(37.3515985,127.0711631),
-            LatLng.from(37.3505955,127.0712631),
-            LatLng.from(37.3565945,127.0718621),
-            LatLng.from(37.3525995,127.0712671),
-            LatLng.from(37.3595915,127.0715681)
-        )
-        setStore(loc_list)
-    }
-
 
     override fun onDestroyView() {
         (mapView?.parent as? ViewGroup)?.removeView(mapView)

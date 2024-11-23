@@ -195,6 +195,7 @@ interface RetrofitService {
     //가게 정보 전체 조회
     @GET("/api/v1/store/allsummaries")
     fun getStoreAllList(
+        @Header("authorization") authorization: String
     ): Call<StoreAllListRes>
 
     //가게 정보 간단 조회 //핀 클릭 시
@@ -283,6 +284,7 @@ interface RetrofitService {
     //모든 전통시장 정보 보기
     @GET("/api/v1/traditional")
     fun getTraditionalList(
+        @Header("Authorization") authorization: String
     ): Call<TraditionalListRes>
 
     //해당 시장에 포함된 가게
