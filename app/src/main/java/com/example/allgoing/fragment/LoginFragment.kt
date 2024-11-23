@@ -13,6 +13,7 @@ import com.example.allgoing.R
 import com.example.allgoing.activity.MainActivity
 import com.example.allgoing.databinding.FragmentLoginBinding
 import com.example.allgoing.retrofit.DTO.Request.LoginReq
+import com.example.allgoing.retrofit.DTO.Response.LoginRes
 import com.example.allgoing.retrofit.DTO.Response.kakaoUserRes
 import com.example.allgoing.retrofit.KakaoClient
 import com.example.allgoing.retrofit.RetrofitClient
@@ -29,31 +30,51 @@ class LoginFragment : Fragment() {
 
     lateinit var binding : FragmentLoginBinding
 
+    private var accessToken = ""
+
     // 카카오 로그인 콜백
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.d(TAG, "로그인 실패: ${error.localizedMessage}")
         } else if (token != null) {
             Log.d(TAG, "로그인 성공! ${token.accessToken}")
-            login(token)
+            accessToken = token.accessToken
+            Log.d("accessToken",accessToken)
+            kakaoLogin()
         }
     }
 
-    private fun login(token: OAuthToken) {
-        KakaoClient.service.getUser(Authorization = "Bearer "+token.accessToken).enqueue(object :
-            Callback<kakaoUserRes> {
-            override fun onResponse(
-                call: Call<kakaoUserRes>,
-                response: Response<kakaoUserRes>
-            ) {
-                Log.d("kakaoUserRes", response.toString())
-//                    RetrofitClient.service.postLogin(LoginReq(token.accessToken, "email@gmail.com"))
-                goToMain()
+    private fun kakaoLogin(){
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}1" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+
+                login(user.kakaoAccount?.email.toString())
+            }
+        }
+    }
+
+    private fun login(email:String){
+        RetrofitClient.service.postLogin(LoginReq(accessToken.toString(),email)).enqueue(object : Callback<LoginRes>{
+            override fun onResponse(call: Call<LoginRes>, response: Response<LoginRes>) {
+                Log.d("LoginFragment", response.body().toString())
+
+                if(response != null){
+                    goToMain()
+                }
             }
 
-            override fun onFailure(call: Call<kakaoUserRes>, t: Throwable) {
-                Log.e("kakaoUserRes",t.toString())
+            override fun onFailure(call: Call<LoginRes>, t: Throwable) {
+                Log.e("LoginFragment",t.toString())
             }
+
         })
     }
 
@@ -104,8 +125,9 @@ class LoginFragment : Fragment() {
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
                         Log.d(TAG, "로그인 성공! ${token.accessToken}")
-                        login(token)
-                        goToMain()
+                        accessToken = token.accessToken
+                        Log.d("accessToken",accessToken)
+                        kakaoLogin()
                     }
                 }
             } else {
