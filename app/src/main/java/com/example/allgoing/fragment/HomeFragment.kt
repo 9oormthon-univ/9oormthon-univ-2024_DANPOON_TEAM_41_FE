@@ -43,17 +43,17 @@ class HomeFragment : Fragment(){
 //        surfaceView.isVisible = true
         var model = "cat"
 
-        RetrofitClient.service.getCatAssList(MainActivity.accessToken).enqueue(object : Callback<CatAssListRes> {
-            override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
+//        RetrofitClient.service.getCatAssList(MainActivity.accessToken).enqueue(object : Callback<CatAssListRes> {
+//            override fun onResponse(call: Call<CatAssListRes>, response: Response<CatAssListRes>) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onFailure(call: Call<CatAssListRes>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//
+//
+//        })
 
 
         customViewer.run {
