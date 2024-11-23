@@ -2,7 +2,6 @@ package com.example.allgoing.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import com.example.allgoing.databinding.FragmentCommunityBinding
 import com.example.allgoing.retrofit.DTO.Response.ReviewTraditionalRes
 import com.example.allgoing.retrofit.RetrofitClient
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +31,7 @@ class CommunityFragment : Fragment(){
 
     private lateinit var adapter : CommunityRVAdapter
     var CommunityDatas = ArrayList<ReviewTraditionalRes.Community>()
-    var reviewId: Int = 0
+    var traditionalId: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +41,7 @@ class CommunityFragment : Fragment(){
         binding = FragmentCommunityBinding.inflate(inflater,container,false)
 
 //        loadSampleData()
-        getReviewTraditional(reviewId)
+        getReviewTraditional(traditionalId)
         initcommunityRecyclerView()
 
         //탭 색 바꾸기
@@ -82,8 +80,8 @@ class CommunityFragment : Fragment(){
     }
 
     // Retrofit API 응답 처리
-    private fun getReviewTraditional(reviewId: Int) {
-        RetrofitClient.service.getReviewTraditional(MainActivity.accessToken, reviewId)
+    private fun getReviewTraditional(traditionalId: Int) {
+        RetrofitClient.service.getReviewTraditional(MainActivity.accessToken, traditionalId)
             .enqueue(object : Callback<ReviewTraditionalRes> {
                 override fun onFailure(call: Call<ReviewTraditionalRes>?, t: Throwable?) {
                     Log.e("retrofit", t.toString())
