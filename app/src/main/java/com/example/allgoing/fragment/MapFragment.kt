@@ -16,6 +16,7 @@ import com.example.allgoing.databinding.FragmentMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMap.OnLabelClickListener
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
 import com.kakao.vectormap.LatLng
@@ -177,9 +178,27 @@ class MapFragment : Fragment(){
 
         for(index in 0..(loc_list.size-1)) {
             var loc = loc_list[index]
-            val options = LabelOptions.from("store"+index.toString(),loc).setStyles(storeStyles)
+            val options = LabelOptions.from("store"+index.toString(),loc).setStyles(storeStyles).setTag(index)
 
-            layer?.addLabel(options)
+            layer?.addLabel(options
+                , object : OnLabelCreateCallback{
+                override fun onLabelCreated(layer: LabelLayer?, label: Label?) {
+                    if (label != null) {
+                        kakaoMap?.setOnLabelClickListener(object : OnLabelClickListener{
+                            override fun onLabelClicked(
+                                kakaoMap: KakaoMap,
+                                layer: LabelLayer?,
+                                label: Label
+                            ): Boolean {
+                                binding.mapBottom.visibility = View.VISIBLE
+
+                                return true
+                            }
+                        })
+                    }
+                }
+
+            })
         }
     }
 
@@ -187,10 +206,10 @@ class MapFragment : Fragment(){
     private fun test(){
         var loc_list : ArrayList<LatLng> = arrayListOf(
             LatLng.from(37.3515985,127.0711631),
-            LatLng.from(37.3515955,127.0717631),
-            LatLng.from(37.3515945,127.0717621),
-            LatLng.from(37.3515995,127.0717671),
-            LatLng.from(37.3515915,127.0717681)
+            LatLng.from(37.3505955,127.0712631),
+            LatLng.from(37.3565945,127.0718621),
+            LatLng.from(37.3525995,127.0712671),
+            LatLng.from(37.3595915,127.0715681)
         )
         setStore(loc_list)
     }
